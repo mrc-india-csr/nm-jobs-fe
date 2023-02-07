@@ -1,6 +1,6 @@
 ## nm-jobs-fe
 
-Naan mudhalvan jobs Front end repository
+Naan mudhalvan Jobs Portal Front end repository
 
 ## Setup
 
