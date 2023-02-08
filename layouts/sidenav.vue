@@ -1,24 +1,7 @@
 <template>
-  <div>
-    <Head>
-      <Title>Naan Mudhalvan Massive Upskilling Platform</Title>
-    </Head>
-    <v-app style="position: fixed">
-      <v-app-bar
-        dense
-        elevation="4"
-        flat
-        outlined
-        prominent
-        rounded
-      ></v-app-bar>
-      <div>
-        <slot />
-      </div>
-
-      <v-card>
+    <v-card>
         <v-layout>
-          <v-navigation-drawer permanent class="nav-drawer sidebar-font">
+          <v-navigation-drawer permanent class="nav-drawer sidebar-font" style="top:66px;  background: #304443">
             <v-list>
               <v-list-item
                 title="Home"
@@ -35,31 +18,36 @@
                 class="sidebar-font"
                 value="My Profile"
               ></v-list-item>
+              
             </v-list>
           </v-navigation-drawer>
 
           <v-main style="height: 100vh; position: relative"></v-main>
         </v-layout>
-      </v-card>
-    </v-app>
-  </div>
+  </v-card>
 </template>
-
-<style>
+<style scoped>
 .nav-drawer {
-  /* min-width: 8.875rem; */
+  min-width: 8.875rem;
   background: #304443;
   position: fixed;
-  margin-top: 2em;
-  padding-top: 2rem;
+  margin-top: 76px;
+  padding-top: 2.5rem;
 }
 
 .sidebar-font {
-  font-family: Roboto;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.1875rem;
-  letter-spacing: 0.01em;
-  text-align: left;
+ 
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+
+
 }
 </style>
+<script>
+export default{
+    name:'sidenav'
+}
+</script>
