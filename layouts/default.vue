@@ -4,7 +4,11 @@
             <Title>Naan Mudhalvan Massive Upskilling Platform</Title>
         </Head>
         <v-app>
-            <v-app-bar dense elevation="4" flat outlined prominent rounded></v-app-bar>
+            <v-app-bar dense elevation="4" flat outlined prominent rounded>                  
+                <img class="logo" src="../assets/logo.png"/>
+                <v-spacer></v-spacer>
+                <v-select :items="items" solo class = "language" v-model="defaultSelected" density="compact"></v-select>
+            </v-app-bar>
             <br/><br/><br/>
             <div>
                 <slot/>
@@ -12,4 +16,24 @@
         </v-app>
     </div>
 </template>
-    
+
+<script>
+  export default {
+    data: () => ({
+      defaultSelected: "English",
+      items: ["English","Tamil"],
+    }),
+  }
+</script>
+
+<style scoped>
+.logo{
+    margin: 20px;
+    padding : 20px;
+}
+.language{
+    margin-right: 30px;
+    margin-top: 20px;
+    max-width: 150px;
+}
+</style>
