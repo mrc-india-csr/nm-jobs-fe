@@ -5,7 +5,7 @@
         </Head>
         <v-app>
             <v-app-bar dense elevation="4" flat outlined prominent rounded>                  
-                <img class="logo" src="../assets/logo.png"/>
+                <img class="logo" src="../static/assets/nm-logo.svg"/>
                 <v-spacer></v-spacer>
                 <v-select :items="items" solo class = "language" v-model="defaultSelected" density="compact"></v-select>
             </v-app-bar>
@@ -19,6 +19,7 @@
 
 <script>
   export default {
+    name:'header',
     data: () => ({
       defaultSelected: "English",
       items: ["English","Tamil"],
