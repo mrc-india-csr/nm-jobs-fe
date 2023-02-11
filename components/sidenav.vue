@@ -36,7 +36,7 @@
     </v-layout>
   </v-card>
 </template>
-<style >
+<style>
 .nav-drawer {
   max-width: 8.875rem;
   background: #304443;

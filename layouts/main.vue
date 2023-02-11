@@ -1,20 +1,25 @@
 <template>
-  <div>
-   <headers/>
-   <sidenav/>
-  </div>
+  <v-app>
+   <Header/>
+   <Sidenav/>
+   <JobSidePanel/>
+  </v-app>
 </template>
 <script>
-import headers from '../components/header.vue';
-import sidenav from '../components/sidenav.vue';
+import Header from '../components/Header';
+import Sidenav from '../components/Sidenav';
+import JobSidePanel from '../components/JobSidePanel';
 
 export default{
   name:'mains',
   components:{
-    headers,
-    sidenav
+    Header,
+    Sidenav,
+    JobSidePanel
   }
 }
 </script>
+<style>
+</style>
 
 
