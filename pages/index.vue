@@ -1,12 +1,18 @@
 <template>
+<div>
+                <JobSidePanel />
     <div>
-        <Head>
-        <Title>Naan Mudhalvan Massive Upskilling Platform</Title>
-        </Head>
         <h1>Hello World</h1>
+
     </div>
+
+</div>
 </template>
-<script setup>
+<script>
+import JobSidePanel from '~/components/JobSidePanel'
+export default {
+  components: { JobSidePanel }
+}
 </script>
 <style scoped>
 
