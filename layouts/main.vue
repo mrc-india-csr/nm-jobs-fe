@@ -5,8 +5,8 @@
   </div>
 </template>
 <script>
-import headers from './header.vue';
-import sidenav from './sidenav.vue';
+import headers from '../components/header.vue';
+import sidenav from '../components/sidenav.vue';
 
 export default{
   name:'mains',

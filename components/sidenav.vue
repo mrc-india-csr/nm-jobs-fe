@@ -4,18 +4,24 @@
       <v-navigation-drawer permanent class="nav-drawer sidebar-font">
         <v-list
         >
+        <NuxtLink to="/">
           <v-list-item
           @click="handleClick"
             title="Home"
             class="sidebar-font"
             value="home"
-          ></v-list-item>
+
+            ></v-list-item>
+        </NuxtLink>
+
+        <NuxtLink to = "/jobs/">
           <v-list-item
           @click="handleClick"
             title="Jobs"
             class="sidebar-font"
             value="Jobs"
           ></v-list-item>
+          </NuxtLink>
           <v-list-item
           @click="handleClick"
             title="My Profile"
@@ -56,7 +62,12 @@ v-list :hover{
   color: #FFE5C7;
   background-color:#253534;
   font-weight: 500;
+
   
+}
+
+v-list{
+  text-decoration: none;
 }
 
 
@@ -79,7 +90,7 @@ export default {
     handleactiveness(){
       console.log(this.active)
       return this.active;
-    }
+    },
   },
 };
 </script>
