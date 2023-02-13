@@ -5,12 +5,12 @@
       location="right"
       temporary
       :width="700"
-    >
+    >    
       <v-card :elevation="0" height="40px" text="Add job" class="d-flex" ><span @click="drawer = false" class="close-btn">x</span></v-card>
       <v-col  cols="14">
         <hr class="divider"/>
         <p>Job Type</p>
-        <v-btn-toggle v-model="text" color="#496968" group>
+        <v-btn-toggle v-model="jobType" color="#496968" group>
           <v-btn value="fullTime" rounded ="2">
             Full Time
           </v-btn>
@@ -18,7 +18,9 @@
               Internship
           </v-btn>
         </v-btn-toggle>
-        <Internship />
+        <div class="job-form-container">
+        <Internship v-if="jobType==='internShip'" />
+        </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
           <v-btn class="post-btn form-submit-btn" value="post"  color="#455A64">
@@ -38,7 +40,7 @@ import Internship from './Internship'
     data: () => ({
       drawer: true,
       group: null,
-       text: 'center',
+      jobType: '',
     }),
 
     watch: {
@@ -86,5 +88,8 @@ p{
     margin-top: 10px;
     color: #707479;
     cursor: pointer;
+}
+.job-form-container{
+  min-height : 28rem;
 }
 </style>
