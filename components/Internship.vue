@@ -32,18 +32,19 @@
             </div>                                    
             <div class="field-container">
                 <p class="field-label">Location <span class="req">*</span></p>
-                <div class="vue-shtr">
                 <v-select class = "form-dropdown" density="compact"></v-select>
-                </div>
             </div>
             <div class="field-container">
+                <p class="field-label">Stipend <span class="req">*</span></p>
                 <v-radio-group inline>
                     <v-radio class= "form-radio" color="#AD793D" label="Paid" value="paid"></v-radio>
                     <v-radio class= "form-radio" color="#AD793D" label="Unpaid" value="unpaid"></v-radio>
-                </v-radio-group>            
-                <v-select class = "form-dropdown" density="compact"></v-select>
-                <input class="text-field" v-model="message"/>
-                <v-select class = "form-dropdown" density="compact"></v-select>
+                </v-radio-group>       
+                <div class="stipend-dropdown">     
+                    <v-select class = "currency-symbol" density="compact"></v-select>
+                    <input class="text-field stipend" v-model="message"/>
+                    <v-select class = "salary-months" density="compact"></v-select>
+                </div>
             </div>            
             <div class="field-container">
             <p class="field-label">Other perks <span class="req">*</span></p>
@@ -52,7 +53,36 @@
                 <v-checkbox class="form-checkbox" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
                 <v-checkbox class="form-checkbox" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
             </v-row>
-            </div>                                                
+            </div>       
+            <div class="field-container margin-top10">
+            <v-row>
+                <v-col>
+                    <p class="field-label margin-top10">Does this internship come with a pre-placement <span class="req">*</span> <br/>
+                                        offer ( PPO ) or Full Time offer </p>
+                </v-col>
+                <v-col>                                        
+                    <v-switch  :model-value="true" label="Yes" color="#AD793D" value="Yes"></v-switch>
+                </v-col>
+            </v-row>
+            </div>      
+            <p class="form-title">Contact Details</p>
+            <div class="field-container height50">
+                <v-row>
+                    <v-checkbox class="form-checkbox" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
+                </v-row>
+            </div>          
+            <div class="field-container">
+                <p class="field-label">Name <span class="req">*</span></p>
+                <input class="text-field" v-model="message"/>
+            </div>
+            <div class="field-container">
+                <p class="field-label">Email <span class="req">*</span></p>
+                <input class="text-field" v-model="message"/>
+            </div>
+            <div class="field-container">
+                <p class="field-label">Number <span class="req">*</span></p>
+                <input class="text-field" v-model="message"/>
+            </div>                         
         </v-form>
     </div>
 </template>
@@ -63,7 +93,6 @@
 </script>
 
 <style>
-
 .form-dropdown {
     margin-right: 30px;    
     max-width: 150px;
@@ -76,6 +105,7 @@
 }  
 .form-radio {
     font-size: 10px;
+    margin: 0px 10px 0px -10px;
  }
 .form-radio > .v-label {
     font-size:12px;
@@ -87,8 +117,8 @@
     font-size: 10px;
     height: 30px;
 }
-.form-checkbox > .v-label {
-    font-size:12px;
+.form-checkbox > .v-input__control > .v-selection-control > .v-label {
+    font-size: 14px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 600;
@@ -144,5 +174,42 @@
     width: 180px !important;
     padding : 0px !important;
 }
-
+.stipend-dropdown{
+    display: flex;
+    margin-top: -30px;
+}
+.currency-symbol{
+    margin-right: -8px;
+    max-width: 100px;
+    width:80px !important;
+    margin-top: 5px;   
+        height: 40px !important;
+}
+.currency-symbol > .v-input__control { 
+    width:90px !important;
+    height: 40px !important;
+    outline: auto rgba(220, 220, 220, 1) !important;
+}  
+.salary-months{
+    margin-right: 5px;    
+    max-width: 100px;
+    width:80px !important;
+    margin-top: 5px;   
+    height: 40px !important; 
+}
+.salary-months > .v-input__control { 
+    width:90px !important;
+    height: 40px !important;
+    outline: auto rgba(220, 220, 220, 1) !important;
+} 
+.stipend{
+    height: 40px !important;
+    margin: 5px;
+}
+.margin-top10{
+margin-top: 10px;
+}
+.height50{
+    height: 50px;
+}
 </style>
