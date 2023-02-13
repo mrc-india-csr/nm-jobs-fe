@@ -31,7 +31,6 @@
 .language > .v-input__control{ 
      width:130px !important;
     outline: auto !important;
- 
 }  
 .logo{
     margin: 20px;
@@ -40,9 +39,4 @@
 .header{
   z-index: 1000;
 }
-
-
-
-
-
 </style>

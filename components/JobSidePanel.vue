@@ -5,7 +5,7 @@
       temporary
       :width="700"
       class="job-panel"
-    >    
+    >
       <v-card :elevation="0" height="40px" text="Add job" class="d-flex" ><span @click="drawer = false" class="close-btn">x</span></v-card>
       <v-col  cols="14">
         <hr class="divider"/>
