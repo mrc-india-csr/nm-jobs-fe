@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="header">
         <Head>
             <Title>Naan Mudhalvan Massive Upskilling Platform</Title>
         </Head>
@@ -36,6 +36,9 @@
 .logo{
     margin: 20px;
     padding : 20px;
+}
+.header{
+  z-index: 1000;
 }
 
 

@@ -1,10 +1,10 @@
 <template>
     <v-navigation-drawer
       v-model="drawer"
-      absolute
       location="right"
       temporary
       :width="700"
+      class="job-panel"
     >    
       <v-card :elevation="0" height="40px" text="Add job" class="d-flex" ><span @click="drawer = false" class="close-btn">x</span></v-card>
       <v-col  cols="14">
@@ -19,7 +19,8 @@
           </v-btn>
         </v-btn-toggle>
         <div class="job-form-container">
-        <Internship v-if="jobType==='internShip'" />
+        <Internship v-if="jobType === 'internShip'" />
+        <FullTimeJob v-else-if="jobType === 'fullTime'" />
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
@@ -35,8 +36,9 @@
 </template>
 <script>
 import Internship from './Internship'
+import FullTimeJob from './FullTimeJob'
   export default {
-     components: { Internship },
+     components: { Internship, FullTimeJob },
     data: () => ({
       drawer: true,
       group: null,
@@ -52,6 +54,10 @@ import Internship from './Internship'
 </script>
 
 <style scoped>
+
+.job-panel{
+  top: 0 !important
+}
 .v-btn--active{      
      color: white;
 }
@@ -90,6 +96,8 @@ p{
     cursor: pointer;
 }
 .job-form-container{
-  min-height : 28rem;
+  min-height : 31.5rem;
+  margin-top: 10px;
 }
+
 </style>
