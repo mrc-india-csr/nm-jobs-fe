@@ -1,6 +1,17 @@
 <template>
   <div class="jobs-content">
-    <h1>Jobs List</h1>
+    <v-card elevation="0" height="50px" class="d-flex">
+      <h1>Jobs List</h1>
+      <v-spacer />
+      <v-btn
+        class="btn-font"
+        font-size="16px"
+        font-weight="400"
+        color="#455A64"
+      >
+        + Add Job
+      </v-btn>
+    </v-card>
     <br />
 
     <v-data-table
@@ -39,95 +50,25 @@ export default {
           sortable: false,
           key: "name",
         },
-        { title: "Type", key: "calories" },
-        { title: "Industry", key: "fat" },
-        { title: "Location", key: "carbs" },
-        { title: "Open Positions", key: "protein" },
-        { title: "Application Received", key: "iron" },
+        { title: "Type", key: "type" },
+        { title: "Industry", key: "industry" },
+        { title: "Location", key: "location" },
+        { title: "Open Positions", key: "openPositions" },
+        { title: "Application Received", key: "applicationReceived" },
         { title: "Status", key: "status" },
         { title: "Posted On", key: "postedOn" },
         { title: "Open Until", key: "openUntil" },
       ],
       desserts: [
         {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: 1,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: 1,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: 7,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: 8,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: 16,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: 0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: 2,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: 45,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: 22,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: 6,
+          name: "Checking",
+          industry: 159,
+          location: 6.0,
+          openPositions: 24,
+          applicationReceived: 4.0,
+          status: 1,
+          postedOn: Date(Date.now()).toString(),
+          openUntil: Date(Date.now()).toString(),
         },
       ],
     };
@@ -135,4 +76,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.btn-font {
+  color: white;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+</style>
