@@ -1,7 +1,12 @@
 <template>
   <v-app id="app">
    <Header/>
-   <Sidenav/>
+   <v-card>
+    <v-layout>
+      <Sidenav/>
+      <Content />
+    </v-layout>
+   </v-card>
    <JobSidePanel/>
   </v-app>
 </template>
@@ -9,13 +14,15 @@
 import Header from '../components/Header';
 import Sidenav from '../components/Sidenav';
 import JobSidePanel from '../components/JobSidePanel';
+import Content from '../components/content/Content';
 
 export default{
   name:'mains',
   components:{
     Header,
     Sidenav,
-    JobSidePanel
+    JobSidePanel,
+    Content
   }
 }
 </script>

@@ -1,8 +1,14 @@
 export default defineNuxtConfig({
-  app:{
-  head:{
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  }
+modules: [
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: ['defineStore', 'acceptHMRUpdate','storeToRefs'],
+      },
+    ],
+  ],
+alias: {
+  pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs"
 },
     css: ["vuetify/lib/styles/main.sass"],
     build: {

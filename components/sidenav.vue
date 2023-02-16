@@ -1,40 +1,28 @@
 <template>
-  <v-card>
-    <v-layout>
       <v-navigation-drawer permanent class="nav-drawer sidebar-font">
-        <v-list
-        >
-        <NuxtLink to="/">
+        <v-list>
           <v-list-item
-          @click="handleClick"
+            @click="handleClick('home')"
             title="Home"
             class="sidebar-font"
-            value="home"
-
-            ></v-list-item>
-        </NuxtLink>
-
-        <NuxtLink to = "/jobs/">
+            value="home">
+          </v-list-item>
           <v-list-item
-          @click="handleClick"
+            @click="handleClick('jobs')"
             title="Jobs"
             class="sidebar-font"
-            value="Jobs"
-          ></v-list-item>
-          </NuxtLink>
+            value="Jobs">
+          </v-list-item>
           <v-list-item
-          @click="handleClick"
+            @click="handleClick('profile')"
             title="My Profile"
             class="sidebar-font"
             value="My Profile"
-            v-bind:style="[handleactiveness?sidebar-font-active:sidebar-font]"
-          ></v-list-item>
+            v-bind:style="[handleactiveness?sidebar-font-active:sidebar-font]">
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
-
-      <v-main style="height: 100vh; position: relative"></v-main>
-    </v-layout>
-  </v-card>
+      <v-main style="height: 100vh; position: relative;padding: 85px;"></v-main>
 </template>
 <style>
 .nav-drawer {
@@ -59,18 +47,14 @@ v-list :hover{
 .sidebar-font :focus{
   color: #FFE5C7;
   background-color:#253534;
-  font-weight: 500;
-
-  
+  font-weight: 500;  
 }
-
-a{
-  text-decoration: none;
-}
-
 
 </style>
 <script>
+import { useFormStore } from '../store/formStore';
+const store = useFormStore();
+
 export default {
   name: "sidenav",
 
@@ -79,11 +63,10 @@ export default {
       active: false,
     };
   },
-  methods: {
-    handleClick() {
-      console.log("Here")
+  methods: {        
+    handleClick(tab) {
+      store.activeTab = tab;
       this.active = !this.active;
-      console.log(this.active)
     },
     handleactiveness(){
       console.log(this.active)
