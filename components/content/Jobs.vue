@@ -3,21 +3,14 @@
     <v-card elevation="0" height="50px" class="d-flex">
       <h1>Jobs List</h1>
       <v-spacer />
-      <v-btn
-        class="btn-font"
-        font-size="16px"
-        font-weight="400"
-        color="#455A64"
-      >
-        + Add Job
-      </v-btn>
+      <v-btn class="btn-font" color="#455A64"> + Add Job </v-btn>
     </v-card>
     <br />
 
     <v-data-table
       v-model="selected"
       :headers="headers"
-      :items="desserts"
+      :items="jobs"
       item-value="name"
       show-select
       class="elevation-1"
@@ -35,6 +28,7 @@ export default {
   },
   defaults: {
     VDataTable: {
+      
       fixedHeader: true,
       noDataText: "Results not found",
     },
@@ -47,7 +41,7 @@ export default {
         {
           title: "Job Title",
           align: "start",
-          sortable: false,
+          sortable: true,
           key: "name",
         },
         { title: "Type", key: "type" },
@@ -59,7 +53,7 @@ export default {
         { title: "Posted On", key: "postedOn" },
         { title: "Open Until", key: "openUntil" },
       ],
-      desserts: [
+      jobs: [
         {
           name: "Checking",
           industry: 159,
@@ -84,4 +78,8 @@ export default {
   font-size: 16px;
   line-height: 19px;
 }
+
+/* .change-color{
+  color:red;
+} */
 </style>
