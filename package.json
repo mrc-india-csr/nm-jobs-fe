@@ -14,7 +14,9 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.6",
     "@vitejs/plugin-vue": "^4.0.0",
+    "mdbvue": "^6.7.3",
     "sass": "^1.58.0",
+    "vue3-easy-data-table": "^1.5.34",
     "vuetify": "^3.1.3"
   }
 }

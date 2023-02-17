@@ -6,83 +6,81 @@
       <v-btn class="btn-font" color="#455A64"> + Add Job </v-btn>
     </v-card>
     <br />
-    <v-data-table
-      v-model="selected"
-      :headers="headers"
-      :items="jobs"
-      item-value="name"
-      show-select
-      class="elevation-1 color-change"
-    >
-    <template v-slot:item.status="{ item }">
-      <v-chip :color="getColor(item.raw.status)" label>
-        {{ item.raw.status }}
-      </v-chip>
-    </template>
-    </v-data-table>
+    
+    <Vue3EasyDataTable
+    v-model:items-selected="itemsSelected"
+    :headers="headers"
+    :items="items"
+    table-class-name="color-change"
+    />
   </div>
 </template>
 
-<script>
-import { VDataTable } from "vuetify/labs/VDataTable"
+<script lang="ts">
+import type { Header, Item } from "vue3-easy-data-table";
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import { mdbDatatable } from 'mdbvue';
+import {ref} from "vue";
+import 'vue3-easy-data-table/dist/style.css';
 
 export default {
   name: "jobs",
-  components: {
-    VDataTable,
+  components:{
+    Vue3EasyDataTable,
+    mdbDatatable,
   },
-  defaults: {
-    VDataTable: {
-      fixedHeader: true,
-      noDataText: "Results not found",
-    },
-  },
-
-  data() {
-    return {
-      selected: [],
-      headers: [
-        {
-          title: "Job Title",
-          align: "start",
-          sortable: true,
-          key: "name",
-          class: "blue lighten-5",
-        },
-        { title: "Type", key: "type" },
-        { title: "Experience", key: "experience" },
-        { title: "Industry", key: "industry" },
-        { title: "Location", key: "location" },
-        { title: "Open Positions", key: "openPositions" },
-        { title: "Application Received", key: "applicationReceived" },
-        { title: "Status", key: "status" },
-        { title: "Posted On", key: "postedOn" },
-        { title: "Open Until", key: "openUntil" },
-        { title: "Contact SPOC", key: "contactSPOC" },
-      ],
-      jobs: [
-        {
-          name: "Checking",
-          experience: 3,
-          industry: 159,
-          location: 6.0,
-          openPositions: 24,
-          applicationReceived: 4.0,
-          status:"Open",
-          postedOn: Date(Date.now()).toString(),
-          openUntil: Date(Date.now()).toString(),
-          contactSPOC: "Hari",
-        },
-      ],
-    };
-  },
-  methods: {
-      getColor (status) {
-        if (status === "Open") return 'green'
-        else if (status === "Close") return 'red'
-        else return 'green'
+  setup(){
+    const itemsSelected: Item[] = ref([]);
+      const headers : Header[]=[
+        { text: "Job Title", value: "jobtitle"},
+        { text: "Type", value: "type" },
+        { text: "Experience", value: "experience" },
+        { text: "Industry", value: "industry" },
+        { text: "Location", value: "location" },
+        { text: "Open Positions", value: "openPositions" , width:100},
+        { text: "Application Received", value: "applicationReceived" , width:100},
+        { text: "Status", value: "statusvalue" },
+        { text: "Posted On", value: "postedOn" },
+        { text: "Open Until", value: "openUntil" },
+        { text: "Contact SPOC", value: "contactSPOC" , width:200},
+      ];
+      const items : Item[]=[
+      {
+        jobtitle:"HR Executive",
+        type:"Internship",
+        experience:3,
+        industry:"Manufacturing",
+        location:"Chennai",
+        openPositions:10,
+        applicationReceived:5,
+        statusvalue:"open",
+        postedOn: Date(Date.now()).toString(),
+        openUntil:Date(Date.now()).toString(),
+        contactSPOC:"Hari"
       },
-};
+      {
+        jobtitle:"HR Executive",
+        type:"Internship",
+        experience:3,
+        industry:"Manufacturing",
+        location:"Chennai",
+        openPositions:10,
+        applicationReceived:5,
+        statusvalue:"open",
+        postedOn: Date(Date.now()).toString(),
+        openUntil:Date(Date.now()).toString(),
+        contactSPOC:"Hari"
+      },
+    ];
+      return{
+        headers,
+        items,
+        itemsSelected,
+      };
+    }
+  }
+
+
 </script>
 
 <style>
@@ -94,20 +92,17 @@ export default {
   line-height: 19px;
 }
 
-.v-data-table {
-  overflow-x: auto !important;
-}
-
 .color-change {
-  overflow-x: auto !important;
-  max-width: 100%;
-
-  /* margin: auto */
+  overflow-x: auto;
+  --easy-table-header-font-size: 10px;
+  --easy-table-header-font-color: #605E5C;
+  --easy-table-header-background-color:#F4FCFB;
 }
-
 ::-webkit-scrollbar {
-  height: 0px;              /* height of horizontal scrollbar ← You're missing this */
-  width: 0px;               /* width of vertical scrollbar */
+  height: 0px; /* height of horizontal scrollbar ← You're missing this */
+  width: 0px; /* width of vertical scrollbar */
   border: 1px solid #d5d5d5;
 }
+
+
 </style>
