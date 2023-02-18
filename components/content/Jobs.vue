@@ -1,17 +1,17 @@
 <template>
   <div class="jobs-content">
-    <v-card style="max-width:90.5%" elevation="0" height="50px" class="d-flex">
+    <v-card style="max-width:86%" elevation="0" class="d-flex">
       <h1>Jobs List</h1>
       <v-spacer />
       <v-btn class="btn-font" color="#455A64" @click="triggerJobForm()"> + Add Job </v-btn>
     </v-card>
     <br />
-    
     <Vue3EasyDataTable
     v-model:items-selected="itemsSelected"
     :headers="headers"
     :items="items"
     table-class-name="color-change"
+    hide-footer
     />
   </div>
 </template>
@@ -50,6 +50,7 @@ export default {
         { text: "Posted On", value: "postedOn" },
         { text: "Open Until", value: "openUntil" },
         { text: "Contact SPOC", value: "contactSPOC" , width:200},
+        { text: "Open Until", value: "openUntil" },
       ];
       const items : Item[]=[
       {
@@ -100,16 +101,25 @@ export default {
 }
 
 .color-change {
+  display: block;
   overflow-x: auto;
+  white-space: nowrap;
+
   --easy-table-header-font-size: 10px;
   --easy-table-header-font-color: #605E5C;
   --easy-table-header-background-color:#F4FCFB;
-}
-::-webkit-scrollbar {
-  height: 0px; /* height of horizontal scrollbar ← You're missing this */
-  width: 0px; /* width of vertical scrollbar */
-  border: 1px solid #d5d5d5;
+  max-width: 86%;
 }
 
+.d-flex{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 4px;               /* width of vertical scrollbar */
+  border: 1px solid #d5d5d5;
+}
 
 </style>
