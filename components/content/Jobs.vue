@@ -3,7 +3,7 @@
     <v-card style="max-width:90.5%" elevation="0" height="50px" class="d-flex">
       <h1>Jobs List</h1>
       <v-spacer />
-      <v-btn class="btn-font" color="#455A64"> + Add Job </v-btn>
+      <v-btn class="btn-font" color="#455A64" @click="triggerJobForm()"> + Add Job </v-btn>
     </v-card>
     <br />
     
@@ -22,6 +22,8 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import { mdbDatatable } from 'mdbvue';
 import {ref} from "vue";
 import 'vue3-easy-data-table/dist/style.css';
+import { useFormStore } from "../../store/formStore";
+const store = useFormStore();
 
 export default {
   name: "jobs",
@@ -29,6 +31,11 @@ export default {
     Vue3EasyDataTable,
     mdbDatatable,
   },
+  methods: {
+    triggerJobForm() {
+      store.isJobFormActive = true;
+    },
+  }, 
   setup(){
     const itemsSelected: Item[] = ref([]);
       const headers : Header[]=[

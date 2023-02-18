@@ -1,4 +1,5 @@
     <template>
+    
   <div class="internship-form">
     <p class="form-title">Internship Details</p>
     <v-form>
@@ -18,7 +19,7 @@
       </div>
       <div class="field-container">
         <p class="field-label">Category <span class="req">*</span></p>
-        <v-select density="compact" class="form-dropdown"></v-select>
+        <v-select :items="categories" density="compact" class="form-dropdown"></v-select>
       </div>
       <div class="field-container">
         <p class="field-label">Link</p>
@@ -55,7 +56,7 @@
       </div>
       <div class="field-container">
         <p class="field-label">Location <span class="req">*</span></p>
-        <v-select class="form-dropdown" density="compact"></v-select>
+        <input class="text-field" v-model="message" />
       </div>
       <div class="field-container">
         <p class="field-label">Stipend <span class="req">*</span></p>
@@ -74,9 +75,9 @@
           ></v-radio>
         </v-radio-group>
         <div class="stipend-dropdown">
-          <v-select class="currency-symbol" density="compact"></v-select>
+          <v-select :items="currency" class="currency-symbol" density="compact"></v-select>
           <input class="text-field stipend" v-model="message" />
-          <v-select class="salary-months" density="compact"></v-select>
+          <v-select :items="salaryTerm" class="salary-months" density="compact"></v-select>
         </div>
       </div>
       <div class="field-container">
@@ -150,6 +151,11 @@
 <script>
 export default {
   name: "Internship",
+      data: () => ({
+      categories: ["Human resources","Engineering", "Product Management"],
+      currency: ["INR","USD","EUR"],
+      salaryTerm : ["/week","/month","/year"]
+    }),
 };
 </script>
 

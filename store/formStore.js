@@ -1,5 +1,5 @@
 export const useFormStore = defineStore('formStore', {
-    state: () => ({ activeTab : ''}),
+    state: () => ({ activeTab : '', isJobFormActive: false}),
     getters: {
     },
     actions: {

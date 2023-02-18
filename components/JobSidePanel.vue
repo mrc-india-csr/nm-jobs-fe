@@ -1,13 +1,13 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
+    v-model="isJobFormActive"
     location="right"
     temporary
     :width="700"
     class="job-panel"
   >
     <v-card :elevation="0" height="40px" text="Add job" class="d-flex"
-      ><span @click="drawer = false" class="close-btn">x</span></v-card
+      ><span @click="isJobFormActive = false" class="close-btn">x</span></v-card
     >
     <v-col cols="14">
       <hr class="divider" />
@@ -32,19 +32,19 @@
 <script>
 import Internship from "./Internship";
 import FullTimeJob from "./FullTimeJob";
+import { useFormStore } from "../store/formStore";
+
 export default {
+  setup(){
+    const store = useFormStore();
+    const { isJobFormActive } = storeToRefs(store);
+    return { isJobFormActive };
+  },
   components: { Internship, FullTimeJob },
   data: () => ({
-    drawer: true,
     group: null,
     jobType: "",
   }),
-
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
 };
 </script>
 
