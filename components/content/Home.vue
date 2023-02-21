@@ -1,6 +1,12 @@
 <template>
     <div class="home-content">   
-    <h1>Home content page</h1>     
+      <div class="default-home-container"> 
+        <img src="../../assets/default-home-vector.svg" />
+        <span class="no-data-msg">
+          No data available <br/>
+          Post a job to get insights!
+        </span>
+      </div>
     </div>
 </template>
 
@@ -11,4 +17,20 @@
 </script>
 
 <style>
+.default-home-container{
+  position: absolute;
+  top: 50%;
+  left: 55%;   
+  transform: translate(-50%, -50%);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.no-data-msg{
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color:#959595;
+}
 </style>
