@@ -1,50 +1,52 @@
 <template>
-  <v-navigation-drawer
-    v-model="isJobFormActive"
-    location="right"
-    temporary
-    :width="700"
-    class="job-panel"
-  >
-    <v-card :elevation="0" height="40px" text="Add job" class="d-flex"
-      ><span @click="isJobFormActive = false" class="close-btn">x</span></v-card
-    >
-    <v-col cols="14">
-      <hr class="divider" />
-      <p>Job Type</p>
-      <v-btn-toggle v-model="jobType" color="#496968" group>
-        <v-btn value="fullTime" rounded="2"> Full Time </v-btn>
-        <v-btn value="internShip"> Internship </v-btn>
-      </v-btn-toggle>
-      <div class="job-form-container">
-        <Internship v-if="jobType === 'internShip'" />
-        <FullTimeJob v-else-if="jobType === 'fullTime'" />
-      </div>
-    </v-col>
-    <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-      <v-btn class="post-btn form-submit-btn" value="post" color="#455A64">
-        Post Job
-      </v-btn>
-      <v-btn class="form-submit-btn" value="cancel" rounded="2"> Cancel </v-btn>
+  <v-navigation-drawer v-model="isJobFormActive" location="right" temporary :width="700" class="job-panel">
+    <v-card :elevation="0" height="40px" text="Add job" class="d-flex">
+      <span @click="isJobFormActive = false" class="close-btn">x</span>
     </v-card>
+    <v-form v-model="isFormValid" @submit.prevent>
+      <v-col cols="14">
+        <hr class="divider" />
+        <p>Job Type</p>
+        <v-btn-toggle v-model="jobType" color="#496968" group>
+          <v-btn value="fullTime" rounded="2"> Full Time </v-btn>
+          <v-btn value="internShip"> Internship </v-btn>
+        </v-btn-toggle>
+        <div class="job-form-container">
+          <Internship v-if="jobType === 'internShip'" />
+          <FullTimeJob v-else-if="jobType === 'fullTime'" />
+        </div>
+      </v-col>
+      <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
+        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" :disabled="jobType == ''  "> Post Job </v-btn>
+        <v-btn class="form-submit-btn" value="cancel" rounded="2"> Cancel </v-btn>
+      </v-card>
+    </v-form>
   </v-navigation-drawer>
 </template>
+
 <script>
 import Internship from "./Internship";
 import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
 
 export default {
-  setup(){
-    const store = useFormStore();
-    const { isJobFormActive } = storeToRefs(store);
-    return { isJobFormActive };
-  },
-  components: { Internship, FullTimeJob },
-  data: () => ({
-    group: null,
-    jobType: "",
-  }),
+    setup() {
+            const store = useFormStore();
+            const {
+                isJobFormActive
+            } = storeToRefs(store);
+            return {
+                isJobFormActive
+            };
+        },
+        components: {
+            Internship,
+            FullTimeJob
+        },
+        data: () => ({
+            isFormValid: false,
+            jobType: "",
+        }),
 };
 </script>
 
