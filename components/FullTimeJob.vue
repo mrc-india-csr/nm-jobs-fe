@@ -55,8 +55,7 @@
       </div>
     </div>
     <div class="field-container">
-      <p class="field-label">Other perks <span class="req">*</span>
-      </p>
+      <p class="field-label">Other perks </p>
       <v-row>
         <v-checkbox class="form-checkbox" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
         <v-checkbox class="form-checkbox" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>

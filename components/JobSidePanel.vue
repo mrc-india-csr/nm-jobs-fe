@@ -18,7 +18,7 @@
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
         <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" :disabled="jobType == ''  "> Post Job </v-btn>
-        <v-btn class="form-submit-btn" value="cancel" rounded="2"> Cancel </v-btn>
+        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
       </v-card>
     </v-form>
   </v-navigation-drawer>

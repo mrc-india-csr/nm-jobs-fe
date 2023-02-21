@@ -58,8 +58,7 @@
       </div>
     </div>
     <div class="field-container">
-      <p class="field-label">Other perks <span class="req">*</span>
-      </p>
+      <p class="field-label">Other perks </p>
       <v-row>
         <v-checkbox class="form-checkbox" color="#AD793D" label="Certificate" value="certificate"></v-checkbox>
         <v-checkbox class="form-checkbox" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
@@ -74,7 +73,7 @@
           </p>
         </v-col>
         <v-col>
-          <v-switch :model-value="true" label="Yes" color="#AD793D" value="Yes"></v-switch>
+            <v-switch v-model="formData.isPPO" hide-details true-value="Yes" false-value="No" :label="`${formData.isPPO}`" color="#AD793D"></v-switch>
         </v-col>
       </v-row>
     </div>
@@ -109,6 +108,7 @@ export default {
             title: "",
             description: "",
             link: "",
+            isPPO: "No",
             numberOfOpenings: "",
             stipendType: "",
             stipendAmount: "",
