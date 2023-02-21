@@ -7,11 +7,13 @@
       <Content />
     </v-layout>
    </v-card>
+   <JobSidePanel />
   </v-app>
 </template>
 <script>
 import Header from '../components/Header';
 import Sidenav from '../components/Sidenav';
+import JobSidePanel from "../components/JobSidePanel";
 import Content from '../components/content/Content';
 
 export default{
@@ -19,6 +21,7 @@ export default{
   components:{
     Header,
     Sidenav,
+    JobSidePanel,
     Content
   }
 }
