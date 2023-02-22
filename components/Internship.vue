@@ -137,6 +137,9 @@ export default {
 </script>
 
 <style>
+.v-overlay-container > .v-overlay > .v-select__content{
+    background-color: white !important;
+}
 .form-dropdown {
   margin-right: 30px;
   max-width: 150px;
