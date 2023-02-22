@@ -28,7 +28,7 @@ export default{
 </script>
 <style>
 .v-navigation-drawer {
-  z-index: 9999 !important;
+  z-index: 1004 !important;
   top: 0 !important;
   height: 100% !important;
 }
