@@ -29,10 +29,11 @@
           class="post-btn form-submit-btn"
           value="post"
           color="#455A64"
-          :disabled="jobType == ''"
+          @click="submitJob"
         >
           Post Job
         </v-btn>
+        <!-- :disabled="jobType == ''" //This was there in <v-btn> tag inside the Post Job button -->
         <v-btn
           class="form-submit-btn"
           value="cancel"
@@ -41,29 +42,22 @@
         >
           Cancel
         </v-btn>
-
+        <!-- Snack bar starts here -->
         <v-snackbar
-          :timeout="2000"
+          v-model="snackbar"
+          :timeout = "2000"
           color="#F4FEF2"
           location="top"
-          class="snack_pos" 
-          
+          class="snack_pos"
         >
-          <template v-slot:activator="{ props }">
-            <v-btn
-              color="success"
-              class="ma-2"
-              v-bind="props"
-              @click="isJobFormActive = false"
-              >open</v-btn
-            >
-          </template>
-          <center>
-            <div>
-              <v-icon class= "snack-text-img" icon="mdi-check-decagram" style="color: green"></v-icon
-              ><span class="snack_text"> Job posted successfully!</span>
-            </div>
-          </center>
+          <div class="align-center">
+            <v-icon
+              class="snack-text-img"
+              icon="mdi-check-decagram"
+              style="color: green"
+            ></v-icon
+            ><span class="snack_text"> {{ snackbarText }}</span>
+          </div>
         </v-snackbar>
       </v-card>
     </v-form>
@@ -90,7 +84,27 @@ export default {
   data: () => ({
     isFormValid: false,
     jobType: "",
+    timeout: 2000,
+    return: {
+      snackbar: false,
+    },
   }),
+  methods: {
+    submitJob() {
+      // console.log("Hi")
+      this.snackbar = true;
+      this.snackbarText = "Job posted Successfully!";
+      this.isJobFormActive = false;
+      
+      // // this.snackbar = false
+      // setTimeout(() => {
+      //   this.snackbar = false
+      //   console.log(this.snackbar)
+      //   console.log("Hello")
+      // }, 2000);
+
+    },
+  },
 };
 </script>
 
@@ -158,9 +172,11 @@ p {
   color: #323130;
 }
 
-.snack-text-img{
-  padding-bottom:0.1rem;
+.snack-text-img {
+  padding-bottom: 0.1rem;
 }
 
-
+.align-center {
+  text-align: center;
+}
 </style>
