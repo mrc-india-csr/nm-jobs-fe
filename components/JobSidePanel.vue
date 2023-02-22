@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer v-model="isJobFormActive" location="right" temporary :width="700" class="job-panel">
+  <v-navigation-drawer
+    v-model="isJobFormActive"
+    location="right"
+    temporary
+    :width="700"
+    class="job-panel"
+  >
     <v-card :elevation="0" height="40px" text="Add job" class="d-flex">
       <span @click="isJobFormActive = false" class="close-btn">x</span>
     </v-card>
@@ -7,6 +13,7 @@
       <v-col cols="14">
         <hr class="divider" />
         <p>Job Type</p>
+
         <v-btn-toggle v-model="jobType" color="#496968" group>
           <v-btn value="fullTime" rounded="2"> Full Time </v-btn>
           <v-btn value="internShip"> Internship </v-btn>
@@ -17,8 +24,47 @@
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" :disabled="jobType == ''  "> Post Job </v-btn>
-        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
+        <v-btn
+          type="submit"
+          class="post-btn form-submit-btn"
+          value="post"
+          color="#455A64"
+          :disabled="jobType == ''"
+        >
+          Post Job
+        </v-btn>
+        <v-btn
+          class="form-submit-btn"
+          value="cancel"
+          rounded="2"
+          @click="isJobFormActive = false"
+        >
+          Cancel
+        </v-btn>
+
+        <v-snackbar
+          :timeout="2000"
+          color="#F4FEF2"
+          location="top"
+          class="snack_pos" 
+          
+        >
+          <template v-slot:activator="{ props }">
+            <v-btn
+              color="success"
+              class="ma-2"
+              v-bind="props"
+              @click="isJobFormActive = false"
+              >open</v-btn
+            >
+          </template>
+          <center>
+            <div>
+              <v-icon class= "snack-text-img" icon="mdi-check-decagram" style="color: green"></v-icon
+              ><span class="snack_text"> Job posted successfully!</span>
+            </div>
+          </center>
+        </v-snackbar>
       </v-card>
     </v-form>
   </v-navigation-drawer>
@@ -30,23 +76,21 @@ import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
 
 export default {
-    setup() {
-            const store = useFormStore();
-            const {
-                isJobFormActive
-            } = storeToRefs(store);
-            return {
-                isJobFormActive
-            };
-        },
-        components: {
-            Internship,
-            FullTimeJob
-        },
-        data: () => ({
-            isFormValid: false,
-            jobType: "",
-        }),
+  setup() {
+    const store = useFormStore();
+    const { isJobFormActive } = storeToRefs(store);
+    return {
+      isJobFormActive,
+    };
+  },
+  components: {
+    Internship,
+    FullTimeJob,
+  },
+  data: () => ({
+    isFormValid: false,
+    jobType: "",
+  }),
 };
 </script>
 
@@ -85,6 +129,7 @@ p {
   font-size: 10px;
   height: 30px !important;
 }
+
 .close-btn {
   margin-right: 40px;
   margin-top: 10px;
@@ -95,4 +140,27 @@ p {
   min-height: 31.5rem;
   margin-top: 10px;
 }
+
+.snack_pos {
+  margin-top: 3rem;
+  min-width: 0;
+}
+
+.snack_text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #323130;
+}
+
+.snack-text-img{
+  padding-bottom:0.1rem;
+}
+
+
 </style>
