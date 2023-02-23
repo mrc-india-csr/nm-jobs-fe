@@ -60,22 +60,25 @@ export default {
         isFormValid: false,
         jobType: "",
         formData: {
+            jobType: "",
             title: "",
             description: "",
             category:"",
             experience: null,
             link: "",
             isPPO: "No",
-            perksOffered: [],
+            otherPerks: [],
             numberOfOpenings: "",
+            location:"",
             stipendType: "",
-            currencyType:"INR",
+            salaryCurrency:"INR",
             salaryTerm:"/month",
-            stipendAmount: "",
-            name: "",
-            email: "",
+            salary: "",
+            contactName: "",
+            contactEmail: "",
             workModel: "",
-            number: "",
+            contactPhone: "",
+            duration: 6,
         },
     timeout: 2000,
     return: {
@@ -83,12 +86,17 @@ export default {
     },
     }),
     methods: {
-        handleSubmit() {
+        async handleSubmit() {
           if(this.isFormValid === true){
-                this.snackbar = true;
+            this.snackbar = true;
             this.snackbarText = "Job posted Successfully!";
             this.isJobFormActive = false;
+            this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
+            this.formData.duration = parseInt(this.formData.duration);
+            this.formData.jobType = this.jobType;
             console.log("SUBMIT===>", this.formData)
+            //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+            //await $fetch( postUrl, { method: 'POST', body: this.formData } );
           }
         }
     },

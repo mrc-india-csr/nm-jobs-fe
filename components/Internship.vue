@@ -30,6 +30,16 @@
       <v-text-field class="text-field" v-model="formData.numberOfOpenings" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
+      <p class="field-label">Duration <span class="req">*</span>
+      </p>
+      <v-text-field class="text-field" v-model="formData.duration" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+    </div>
+    <div class="field-container">
+      <p class="field-label">Open Until <span class="req">*</span>
+      </p>
+      <v-text-field class="text-field" type="date" v-model="formData.openUntil" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+    </div>
+    <div class="field-container">
       <p class="field-label">Type <span class="req">*</span>
       </p>
       <v-radio-group v-model="formData.workModel" inline :rules="rules">
@@ -51,8 +61,8 @@
         <v-radio class="form-radio" color="#AD793D" label="Unpaid" value="unpaid"></v-radio>
       </v-radio-group>
       <div class="stipend-dropdown">
-        <v-select :items="currency" v-model="formData.currencyType" class="currency-symbol" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
-        <v-text-field class="stipend" v-model="formData.stipendAmount" :rules="rules" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-text-field>
+        <v-select :items="currency" v-model="formData.salaryCurrency" class="currency-symbol" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
+        <v-text-field class="stipend" v-model="formData.salary" :rules="rules" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-text-field>
         <v-select :items="salaryTerm" v-model="formData.salaryTerm" class="salary-months" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
         <v-spacer />
       </div>
@@ -60,9 +70,9 @@
     <div class="field-container">
       <p class="field-label">Other perks </p>
       <v-row>
-        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Certificate" value="certificate"></v-checkbox>
-        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
-        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" label="Certificate" value="certificate"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container margin-top10">
@@ -86,17 +96,17 @@
     <div class="field-container">
       <p class="field-label">Name <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.name" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactName" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
       <p class="field-label">Email <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.email" :rules="emailRule" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactEmail" :rules="emailRule" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
       <p class="field-label">Number <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.number" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactPhone" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
   </div>
 </template>
