@@ -1,84 +1,110 @@
 <template>
-  <div class="drop-file">
-    <div v-bind="getRootProps()">
-      <input v-bind="getInputProps()">
-      <p v-if="isDragActive">Drop the files here ...</p>
-      <p v-else>Drag 'n' drop some files here, or click to select files</p>
-      <div v-if="isFocused" id="focus">
-        focused
-      </div>
-      <div v-if="isDragReject" id="isDragReject">
-        isDragReject: {{ isDragReject }}
+  <div>
+    <div v-if="state.files.length > 0" class="files">
+      <div class="file-item" v-for="(file, index) in state.files" :key="index">
+        <span>{{ file.name }}</span>
+        <span class="delete-file" @click="handleClickDeleteFile(index)"
+          >Delete</span
+        >
       </div>
     </div>
-    <button @click="open">open</button>
-    {File.path}
-  </div>
-  <div class="ellipse">
-        <img class ="image"  src="../../assets/company-name.svg"> 
+    <div v-else class="dropzone" v-bind="getRootProps()">
+      <div
+        class="border"
+        :class="{
+          isDragActive,
+        }"
+      >
+        <input v-bind="getInputProps()" />
+        <p v-if="isDragActive">Drop the files here ...</p>
+        <p v-else>Drag and drop files here, or Click to select files</p>
+      </div>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { reactive } from 'vue'
-import { useDropzone } from 'vue3-dropzone'
-import type { FileRejectReason } from 'vue3-dropzone'
+<script setup lang="ts">
+import { reactive, watch } from 'vue';
+import { useDropzone } from 'vue3-dropzone';
 
-function onDrop(acceptedFiles: File[], rejectReasons: FileRejectReason[]) {
-  console.log('acceptedFiles', acceptedFiles)
-  console.log('rejectReasons', rejectReasons)
+const state = reactive({
+  files: [],
+});
+
+const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
+  onDrop,
+});
+
+watch(state, () => {
+  console.log('state', state);
+});
+
+watch(isDragActive, () => {
+  console.log('isDragActive', isDragActive.value, rest);
+});
+
+function onDrop(acceptFiles: never[], rejectReasons: any) {
+  console.log(acceptFiles);
+  console.log(rejectReasons);
+  state.files = acceptFiles;
 }
 
-const options = reactive({
-  multiple: false,
-  onDrop,
-  accept: '.png',
-})
-
-const {
-  getRootProps,
-  getInputProps,
-  isDragActive,
-  isFocused,
-  isDragReject,
-  open
-} = useDropzone(options)
-
+function handleClickDeleteFile(index: number) {
+  state.files.splice(index, 1);
+}
 
 </script>
 
-<style>
-.drop-file
-{
-    ox-sizing: border-box;
-    position: absolute;
-    height: 89px;
-    left: 495px;
-    top: 394px;
-    background: #FCFCFC;
-    border: 0.5px dashed #929292;
-    border-radius: 5px;
+<style lang="scss" scoped>
+.dropzone,
+.files {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-.ellipse
-{
-    position: absolute;
-    height: 82px;
-    width: 82px;
-    left: 314px;
-    right: 326px;
-    top: 392px;
-    background: #EAF5F5;
-    border-radius: 100%;
+.border {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+  background: #fff;
+
+  &.isDragActive {
+    border: 2px dashed #ffb300;
+    background: rgb(255 167 18 / 20%);
+  }
 }
 
-.image
-{
-    position: absolute;
-left: 8.34%;
-right: 8.34%;
-top: 12.5%;
-bottom: 12.5%;
+.file-item {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(255 167 18 / 20%);
+  padding: 7px;
+  padding-left: 15px;
+  margin-top: 10px;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
+  .delete-file {
+    background: red;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 }
 </style>
