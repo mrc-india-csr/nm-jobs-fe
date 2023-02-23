@@ -41,7 +41,7 @@
             <p class="profile-field-label">Profile Image <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <!-- Code to be added -->
+        <UseDropzoneDemo/>
           </v-col>
         </v-row>
         <v-row class="form-row">
@@ -91,8 +91,12 @@
 
 <script>
 import { mdiPencilOutline } from '@mdi/js';
+import UseDropzoneDemo from './Profileimage';
   export default {
     name:'profile',
+    components:{
+    UseDropzoneDemo,
+    },
   }
 </script>
 

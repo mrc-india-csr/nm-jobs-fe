@@ -19,16 +19,40 @@
           <v-btn value="internShip"> Internship </v-btn>
         </v-btn-toggle>
         <div class="job-form-container">
-          <Internship  v-if="jobType === 'internShip'" :formData="formData" :perks="perks" />
-          <FullTimeJob v-else-if="jobType === 'fullTime'" :formData="formData" :perks="perks" />
+          <Internship
+            v-if="jobType === 'internShip'"
+            :formData="formData"
+            :perks="perks"
+          />
+          <FullTimeJob
+            v-else-if="jobType === 'fullTime'"
+            :formData="formData"
+            :perks="perks"
+          />
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="jobType == ''  "> Post Job </v-btn>
-        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
-                <v-snackbar
+        <v-btn
+          type="submit"
+          class="post-btn form-submit-btn"
+          value="post"
+          color="#455A64"
+          @click="handleSubmit"
+          :disabled="jobType == ''"
+        >
+          Post Job
+        </v-btn>
+        <v-btn
+          class="form-submit-btn"
+          value="cancel"
+          rounded="2"
+          @click="isJobFormActive = false"
+        >
+          Cancel
+        </v-btn>
+        <v-snackbar
           v-model="snackbar"
-          :timeout = "2000"
+          :timeout="2000"
           color="#F4FEF2"
           location="top"
           class="snack_pos"
@@ -53,55 +77,53 @@ import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
 
 export default {
-    async setup() {
-        const runtimeConfig = useRuntimeConfig();
-        const url = runtimeConfig.public.apiBaseUrl + '/api/jobs/perks/';
-        const { data: perks } = await useFetch(url);
-        console.log("DATA-->",perks.value)
-        const store = useFormStore();
-        const {isJobFormActive} = storeToRefs(store);
-        return {perks,isJobFormActive};                    
+  async setup() {
+    const runtimeConfig = useRuntimeConfig();
+    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/perks/";
+    const { data: perks } = await useFetch(url);
+    console.log("DATA-->", perks.value);
+    const store = useFormStore();
+    const { isJobFormActive } = storeToRefs(store);
+    return { perks, isJobFormActive };
+  },
+  components: {
+    Internship,
+    FullTimeJob,
+  },
+  data: () => ({
+    isFormValid: false,
+    jobType: "",
+    formData: {
+      title: "",
+      description: "",
+      category: "",
+      experience: null,
+      link: "",
+      isPPO: "No",
+      perksOffered: [],
+      numberOfOpenings: "",
+      stipendType: "",
+      currencyType: "INR",
+      salaryTerm: "/month",
+      stipendAmount: "",
+      name: "",
+      email: "",
+      workModel: "",
+      number: "",
     },
-    components: {
-        Internship,
-        FullTimeJob
-    },
-    data: () => ({
-        isFormValid: false,
-        jobType: "",
-        formData: {
-            title: "",
-            description: "",
-            category:"",
-            experience: null,
-            link: "",
-            isPPO: "No",
-            perksOffered: [],
-            numberOfOpenings: "",
-            stipendType: "",
-            currencyType:"INR",
-            salaryTerm:"/month",
-            stipendAmount: "",
-            name: "",
-            email: "",
-            workModel: "",
-            number: "",
-        },
     timeout: 2000,
     return: {
       snackbar: false,
     },
-    }),
-    methods: {
-        handleSubmit() {
-          if(this.isFormValid === true)
-                this.snackbar = true;
-            this.snackbarText = "Job posted Successfully!";
-            this.isJobFormActive = false;
-            console.log("SUBMIT===>", this.formData)
-        }
+  }),
+  methods: {
+    handleSubmit() {
+      if (this.isFormValid === true) this.snackbar = true;
+      this.snackbarText = "Job posted Successfully!";
+      this.isJobFormActive = false;
+      console.log("SUBMIT===>", this.formData);
     },
-
+  },
 };
 </script>
 
