@@ -26,20 +26,10 @@
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
         <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="jobType == ''  "> Post Job </v-btn>
         <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
-                <v-snackbar
-          v-model="snackbar"
-          :timeout = "2000"
-          color="#F4FEF2"
-          location="top"
-          class="snack_pos"
-        >
-          <div class="align-center">
-            <v-icon
-              class="snack-text-img"
-              icon="mdi-check-decagram"
-              style="color: green"
-            ></v-icon
-            ><span class="snack_text"> {{ snackbarText }}</span>
+        <v-snackbar  v-model="snackbar" :timeout = "2000" color="#F4FEF2" location="top"  class="snack_pos">
+          <div class="flex-center">
+              <img class="snack-text-img" src="../assets/success-icon.svg"/>
+            <span class="snack_text">{{ snackbarText }}</span>
           </div>
         </v-snackbar>
       </v-card>
@@ -94,11 +84,12 @@ export default {
     }),
     methods: {
         handleSubmit() {
-          if(this.isFormValid === true)
+          if(this.isFormValid === true){
                 this.snackbar = true;
             this.snackbarText = "Job posted Successfully!";
             this.isJobFormActive = false;
             console.log("SUBMIT===>", this.formData)
+          }
         }
     },
 
@@ -156,7 +147,6 @@ p {
   margin-top: 3rem;
   min-width: 0;
 }
-
 .snack_text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -170,10 +160,12 @@ p {
 }
 
 .snack-text-img {
-  padding-bottom: 0.1rem;
+      margin-right: 10px;
+    height: 20px;
 }
 
-.align-center {
-  text-align: center;
+.flex-center {
+  display: flex;
+    justify-content: center;
 }
 </style>
