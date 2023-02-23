@@ -18,7 +18,7 @@
     <div class="field-container">
       <p class="field-label">Category <span class="req">*</span>
       </p>
-      <v-select :items="categories" density="compact" class="form-dropdown" bg-color="white" variant="outlined"></v-select>
+      <v-select :items="categories" v-model="formData.category" density="compact" class="form-dropdown" bg-color="white" variant="outlined" :rules="rules"></v-select>
     </div>
     <div class="field-container">
       <p class="field-label">Link</p>
@@ -27,7 +27,7 @@
     <div class="field-container">
       <p class="field-label">Experience <span class="req">*</span>
       </p>
-      <v-select density="compact" class="form-dropdown" bg-color="white" variant="outlined"></v-select>
+      <v-select density="compact" :items="experience" v-model="formData.experience" class="form-dropdown" bg-color="white" variant="outlined" :rules="rules"></v-select>
     </div>
     <div class="field-container">
       <p class="field-label">Job Type <span class="req">*</span>
@@ -47,25 +47,25 @@
       <p class="field-label">Salary <span class="req">*</span>
       </p>
       <div class="stipend-dropdown">
-        <v-select :items="currency" class="currency-symbol" density="compact" bg-color="white" variant="outlined"></v-select>
+        <v-select :items="currency" class="currency-symbol" v-model="formData.currencyType" density="compact" bg-color="white" variant="outlined" :rules="rules"></v-select>
         <v-text-field class="stipend" v-model="formData.minSalary" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
         <v-text-field class="stipend" v-model="formData.maxSalary" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
-        <v-select :items="salaryTerm" class="salary-months" density="compact" bg-color="white" variant="outlined"></v-select>
+        <v-select :items="salaryTerm" class="salary-months" v-model="formData.salaryTerm" density="compact" bg-color="white" variant="outlined" :rules="rules"></v-select>
         <v-spacer />
-      </div>
+      </div><br/>
     </div>
     <div class="field-container">
       <p class="field-label">Other perks </p>
       <v-row>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Employee wellness programme" value="wellness"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Employee wellness programme" value="wellness"></v-checkbox>
       </v-row>
-    </div>
+    </div><br/>
     <div class="field-container height50 marginTop50">
       <p class="form-title">Contact Details</p>
       <v-row>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.copySpoc" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container">
@@ -89,20 +89,11 @@
 <script>
   export default {
     name: 'FullTimeJob',
+    props: {
+      formData: Object,
+      perks: Object,
+    },
     data: () => ({
-        formData: {
-            title: "",
-            description: "",
-            link: "",
-            exp: "",
-            workModel: "",
-            salaryType: "",
-            minSalary: "",
-            maxSalary: "",
-            name: "",
-            email: "",
-            number: "",
-        },
         rules: [
             value => {
                 if (value) return true
@@ -117,7 +108,8 @@
         ],
         categories: ["Human resources", "Engineering", "Product Management"],
         currency: ["INR", "USD", "EUR"],
-        salaryTerm: ["/week", "/month", "/year"]
+        salaryTerm: ["/week", "/month", "/year"],
+        experience: ["0-2 years","3-5 years","5-10 years","10-15 years","15+ years"]
     }),
 }
 </script>

@@ -18,7 +18,7 @@
     <div class="field-container">
       <p class="field-label">Category <span class="req">*</span>
       </p>
-      <v-select :items="categories" density="compact" class="form-dropdown" bg-color="white" variant="outlined"></v-select>
+      <v-select :items="categories"  v-model="formData.category" density="compact" class="form-dropdown" bg-color="white" variant="outlined" :rules="rules"></v-select>
     </div>
     <div class="field-container">
       <p class="field-label">Link</p>
@@ -51,18 +51,18 @@
         <v-radio class="form-radio" color="#AD793D" label="Unpaid" value="unpaid"></v-radio>
       </v-radio-group>
       <div class="stipend-dropdown">
-        <v-select :items="currency" class="currency-symbol" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
+        <v-select :items="currency" v-model="formData.currencyType" class="currency-symbol" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
         <v-text-field class="stipend" v-model="formData.stipendAmount" :rules="rules" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-text-field>
-        <v-select :items="salaryTerm" class="salary-months" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
+        <v-select :items="salaryTerm" v-model="formData.salaryTerm" class="salary-months" density="compact" bg-color="white" variant="outlined" :disabled="!(formData.stipendType === 'paid')"></v-select>
         <v-spacer />
       </div>
-    </div>
+    </div><br/>
     <div class="field-container">
       <p class="field-label">Other perks </p>
       <v-row>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Certificate" value="certificate"></v-checkbox>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Certificate" value="certificate"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.perksOffered" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container margin-top10">
@@ -80,7 +80,7 @@
     <p class="form-title">Contact Details</p>
     <div class="field-container height50">
       <v-row>
-        <v-checkbox class="form-checkbox" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
+        <v-checkbox class="form-checkbox" v-model="formData.copySpoc" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container">
@@ -103,20 +103,11 @@
 <script>
 export default {
     name: "Internship",
+    props: {
+        formData: Object,
+        perks: Object,
+    },
     data: () => ({
-        formData: {
-            title: "",
-            description: "",
-            link: "",
-            isPPO: "No",
-            numberOfOpenings: "",
-            stipendType: "",
-            stipendAmount: "",
-            name: "",
-            email: "",
-            workModel: "",
-            number: "",
-        },
         rules: [
             value => {
                 if (value) return true
@@ -240,13 +231,13 @@ margin-top: -10px;
 }
 .salary-months {
   margin-right: 5px;
-  max-width: 100px;
-  width: 80px !important;
+  max-width: 120px;
+  width: 100px !important;
   margin-top: 5px;
   height: 40px !important;
 }
 .salary-months > .v-input__control {
-  width: 90px !important;
+  width: 100px !important;
   height: 40px !important;
   outline: auto rgba(220, 220, 220, 1) !important;
 }
