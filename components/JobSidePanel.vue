@@ -26,7 +26,7 @@
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
         <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="jobType == ''  "> Post Job </v-btn>
         <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
-        <v-snackbar  v-model="snackbar" :timeout = "2000" color="#F4FEF2" location="top"  class="snack_pos">
+        <v-snackbar  v-model="snackbar" :timeout = "300" color="#F4FEF2" location="top"  class="snack_pos">
           <div class="flex-center">
               <img class="snack-text-img" src="../assets/success-icon.svg"/>
             <span class="snack_text">{{ snackbarText }}</span>
@@ -80,7 +80,7 @@ export default {
             contactPhone: "",
             duration: 6,
         },
-    timeout: 2000,
+    //timeout: 2000,
     return: {
       snackbar: false,
     },
