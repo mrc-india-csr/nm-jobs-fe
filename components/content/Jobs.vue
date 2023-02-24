@@ -57,7 +57,7 @@ export default {
         value: "applicationReceived",
         width: 100,
       },
-      { text: "Status", value: "status", width: 250 },
+      { text: "Status", value: "status"},
       { text: "Posted On", value: "postedOn" },
       { text: "Open Until", value: "openUntil" },
       { text: "Contact SPOC", value: "contactSPOC", width: 200 },
