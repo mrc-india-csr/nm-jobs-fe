@@ -32,12 +32,33 @@
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-
-        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="jobType == ''  "> Post Job </v-btn>
-        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
-        <v-snackbar  v-model="snackbar" :timeout = "300" color="#F4FEF2" location="top"  class="snack_pos">
+        <v-btn
+          type="submit"
+          class="post-btn form-submit-btn"
+          value="post"
+          color="#455A64"
+          @click="handleSubmit"
+          :disabled="jobType == ''"
+        >
+          Post Job
+        </v-btn>
+        <v-btn
+          class="form-submit-btn"
+          value="cancel"
+          rounded="2"
+          @click="isJobFormActive = false"
+        >
+          Cancel
+        </v-btn>
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="300"
+          color="#F4FEF2"
+          location="top"
+          class="snack_pos"
+        >
           <div class="flex-center">
-              <img class="snack-text-img" src="../assets/success-icon.svg"/>
+            <img class="snack-text-img" src="../assets/success-icon.svg" />
             <span class="snack_text">{{ snackbarText }}</span>
           </div>
         </v-snackbar>
@@ -62,53 +83,54 @@ export default {
     return { perks, isJobFormActive };
   },
 
-    components: {
-        Internship,
-        FullTimeJob
+  components: {
+    Internship,
+    FullTimeJob,
+  },
+  data: () => ({
+    isFormValid: false,
+    jobType: "",
+    formData: {
+      jobType: "",
+      title: "",
+      description: "",
+      category: "",
+      experience: null,
+      link: "",
+      isPPO: "No",
+      otherPerks: [],
+      numberOfOpenings: "",
+      location: "",
+      stipendType: "",
+      salaryCurrency: "INR",
+      salaryTerm: "/month",
+      salary: "",
+      contactName: "",
+      contactEmail: "",
+      workModel: "",
+      contactPhone: "",
+      duration: 6,
     },
-    data: () => ({
-        isFormValid: false,
-        jobType: "",
-        formData: {
-            jobType: "",
-            title: "",
-            description: "",
-            category:"",
-            experience: null,
-            link: "",
-            isPPO: "No",
-            otherPerks: [],
-            numberOfOpenings: "",
-            location:"",
-            stipendType: "",
-            salaryCurrency:"INR",
-            salaryTerm:"/month",
-            salary: "",
-            contactName: "",
-            contactEmail: "",
-            workModel: "",
-            contactPhone: "",
-            duration: 6,
-        },
     //timeout: 2000,
     return: {
       snackbar: false,
     },
-    }),
-    methods: {
-        async handleSubmit() {
-          if(this.isFormValid === true){
-            this.snackbar = true;
-            this.snackbarText = "Job posted Successfully!";
-            this.isJobFormActive = false;
-            this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
-            this.formData.duration = parseInt(this.formData.duration);
-            this.formData.jobType = this.jobType;
-            console.log("SUBMIT===>", this.formData)
-            //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
-            //await $fetch( postUrl, { method: 'POST', body: this.formData } );
-          }
-        }
+  }),
+  methods: {
+    async handleSubmit() {
+      if (this.isFormValid === true) {
+        this.snackbar = true;
+        this.snackbarText = "Job posted Successfully!";
+        this.isJobFormActive = false;
+        this.formData.numberOfOpenings = parseInt(
+          this.formData.numberOfOpenings
+        );
+        this.formData.duration = parseInt(this.formData.duration);
+        this.formData.jobType = this.jobType;
+        console.log("SUBMIT===>", this.formData);
+        //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+        //await $fetch( postUrl, { method: 'POST', body: this.formData } );
+      }
     },
   },
 };
@@ -178,12 +200,12 @@ p {
 }
 
 .snack-text-img {
-      margin-right: 10px;
-    height: 20px;
+  margin-right: 10px;
+  height: 20px;
 }
 
 .flex-center {
   display: flex;
-    justify-content: center;
+  justify-content: center;
 }
 </style>
