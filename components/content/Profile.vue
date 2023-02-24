@@ -158,7 +158,7 @@ import Profileimage from './Profileimage';
     height: 82px;
     left: 324px;
     right: 1019px;
-    top: 440px;
+    top: 430px;
     background: #EAF5F5;
     border-radius: 100%;
 }

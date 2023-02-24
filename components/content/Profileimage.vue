@@ -3,9 +3,9 @@
     <div v-if="state.files.length > 0" class="files">
       <div class="file-item" v-for="(file, index) in state.files" :key="index">
         <span>{{ file.name }}</span>
-        <span class="delete-file" @click="handleClickDeleteFile(index)"
-          >Delete</span
-        >
+        <span class="delete-file" @click="handleClickDeleteFile(index)">
+           x
+          </span>
       </div>
     </div>
     <div v-else class="dropzone" v-bind="getRootProps()">
@@ -16,8 +16,9 @@
         }"
       >
         <input v-bind="getInputProps()" />
+          <img class ="image-1"  src="../../assets/profile-upload-icon.svg">
         <p v-if="isDragActive">Drop the files here ...</p>
-        <p v-else>Drag and drop files here, or Click to select files</p>
+        <p v-else> Click here or drop the files here</p>
       </div>
     </div>
   </div>
@@ -80,7 +81,7 @@ function handleClickDeleteFile(index: number) {
   background: #fff;
 
   &.isDragActive {
-    border: 2px dashed #ffb300;
+    border: 2px dashed black;
     background: rgb(255 167 18 / 20%);
   }
 }
@@ -90,8 +91,8 @@ function handleClickDeleteFile(index: number) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgb(255 167 18 / 20%);
-  padding: 7px;
+  border:0.5px dashed;
+  padding: 20px;
   padding-left: 15px;
   margin-top: 10px;
 
@@ -100,11 +101,19 @@ function handleClickDeleteFile(index: number) {
   }
 
   .delete-file {
-    background: red;
-    color: #fff;
+    color: black;
     padding: 5px 10px;
     border-radius: 8px;
     cursor: pointer;
+  }
+
+img .image-1{
+    position: absolute;
+height: 24px;
+left: 696px;
+right: 560px;
+top: 604px;
+background: #496968;
   }
 }
 </style>
