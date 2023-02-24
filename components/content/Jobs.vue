@@ -1,94 +1,107 @@
 <template>
   <div class="jobs-content">
-    <v-card style="max-width:86%" elevation="0" class="d-flex">
+    <v-card style="max-width: 86%" elevation="0" class="d-flex">
       <h1>Jobs List</h1>
       <v-spacer />
-      <v-btn class="btn-font" color="#455A64" @click="triggerJobForm()"> + Add Job </v-btn>
+      <v-btn class="btn-font" color="#455A64" @click="triggerJobForm()">
+        + Add Job
+      </v-btn>
     </v-card>
     <br />
     <Vue3EasyDataTable
-    v-model:items-selected="itemsSelected"
-    :headers="headers"
-    :items="items"
-    table-class-name="color-change"
-    hide-footer
-    />
+      v-model:items-selected="itemsSelected"
+      :headers="headers"
+      :items="items"
+      table-class-name="color-change"
+      hide-footer
+    >
+      <v-chip :color="getColor(item.status)">
+        {{ item.status }}
+      </v-chip>
+    </Vue3EasyDataTable>
   </div>
 </template>
 
 <script lang="ts">
 import type { Header, Item } from "vue3-easy-data-table";
-import Vue3EasyDataTable from 'vue3-easy-data-table';
-import { mdbDatatable } from 'mdbvue';
-import {ref} from "vue";
-import 'vue3-easy-data-table/dist/style.css';
+import Vue3EasyDataTable from "vue3-easy-data-table";
+import { mdbDatatable } from "mdbvue";
+import { ref } from "vue";
+import "vue3-easy-data-table/dist/style.css";
 import { useFormStore } from "../../store/formStore";
 const store = useFormStore();
 
 export default {
   name: "jobs",
-  components:{
+  components: {
     Vue3EasyDataTable,
     mdbDatatable,
+  },
+  setup() {
+    const itemsSelected: Item[] = ref([]);
+    const headers: Header[] = [
+      { text: "Job Title", value: "jobtitle" },
+      { text: "Type", value: "type" },
+      { text: "Experience", value: "experience" },
+      { text: "Industry", value: "industry" },
+      { text: "Location", value: "location" },
+      { text: "Open Positions", value: "openPositions", width: 100 },
+      {
+        text: "Application Received",
+        value: "applicationReceived",
+        width: 100,
+      },
+      { text: "Status", value: "status" , width:250 },
+      { text: "Posted On", value: "postedOn" },
+      { text: "Open Until", value: "openUntil" },
+      { text: "Contact SPOC", value: "contactSPOC", width: 200 },
+      { text: "Open Until", value: "openUntil" },
+    ];
+    const items: Item[] = [
+      {
+        jobtitle: "HR Executive",
+        type: "Internship",
+        experience: 3,
+        industry: "Manufacturing",
+        location: "Chennai",
+        openPositions: 10,
+        applicationReceived: 5,
+        status: "open",
+        postedOn: Date(Date.now()).toString(),
+        openUntil: Date(Date.now()).toString(),
+        contactSPOC: "Hari",
+      },
+      {
+        jobtitle: "HR Executive",
+        type: "Internship",
+        experience: 3,
+        industry: "Manufacturing",
+        location: "Chennai",
+        openPositions: 10,
+        applicationReceived: 5,
+        status: "close",
+        postedOn: Date(Date.now()).toString(),
+        openUntil: Date(Date.now()).toString(),
+        contactSPOC: "Hari",
+      },
+    ];
+    return {
+      headers,
+      items,
+      itemsSelected,
+    };
   },
   methods: {
     triggerJobForm() {
       store.isJobFormActive = true;
     },
-  }, 
-  setup(){
-    const itemsSelected: Item[] = ref([]);
-      const headers : Header[]=[
-        { text: "Job Title", value: "jobtitle"},
-        { text: "Type", value: "type" },
-        { text: "Experience", value: "experience" },
-        { text: "Industry", value: "industry" },
-        { text: "Location", value: "location" },
-        { text: "Open Positions", value: "openPositions" , width:100},
-        { text: "Application Received", value: "applicationReceived" , width:100},
-        { text: "Status", value: "statusvalue" },
-        { text: "Posted On", value: "postedOn" },
-        { text: "Open Until", value: "openUntil" },
-        { text: "Contact SPOC", value: "contactSPOC" , width:200},
-        { text: "Open Until", value: "openUntil" },
-      ];
-      const items : Item[]=[
-      {
-        jobtitle:"HR Executive",
-        type:"Internship",
-        experience:3,
-        industry:"Manufacturing",
-        location:"Chennai",
-        openPositions:10,
-        applicationReceived:5,
-        statusvalue:"open",
-        postedOn: Date(Date.now()).toString(),
-        openUntil:Date(Date.now()).toString(),
-        contactSPOC:"Hari"
+    getColor (status) {
+        if (status === "open") return 'red'
+        else if (status === "close") return 'orange'
+        else return 'green'
       },
-      {
-        jobtitle:"HR Executive",
-        type:"Internship",
-        experience:3,
-        industry:"Manufacturing",
-        location:"Chennai",
-        openPositions:10,
-        applicationReceived:5,
-        statusvalue:"open",
-        postedOn: Date(Date.now()).toString(),
-        openUntil:Date(Date.now()).toString(),
-        contactSPOC:"Hari"
-      },
-    ];
-      return{
-        headers,
-        items,
-        itemsSelected,
-      };
-    }
-  }
-
-
+  },
+};
 </script>
 
 <style>
@@ -106,20 +119,19 @@ export default {
   white-space: nowrap;
 
   --easy-table-header-font-size: 10px;
-  --easy-table-header-font-color: #605E5C;
-  --easy-table-header-background-color:#F4FCFB;
+  --easy-table-header-font-color: #605e5c;
+  --easy-table-header-background-color: #f4fcfb;
   max-width: 86%;
 }
 
-.d-flex{
+.d-flex {
   font-size: 14px;
   font-weight: 600;
 }
 
 ::-webkit-scrollbar {
-  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-  width: 4px;               /* width of vertical scrollbar */
+  height: 4px; /* height of horizontal scrollbar ← You're missing this */
+  width: 4px; /* width of vertical scrollbar */
   border: 1px solid #d5d5d5;
 }
-
 </style>

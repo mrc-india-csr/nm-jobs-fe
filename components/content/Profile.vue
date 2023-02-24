@@ -35,15 +35,18 @@
           <v-col>
             <v-select density="compact" class="form-dropdown"></v-select>
           </v-col>
-        </v-row>
+        </v-row><br/>
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">Profile Image <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <!-- Code to be added -->
+              <div class="ellipse">
+              <img class ="image"  src="../../assets/company-name.svg"> 
+            </div>
+        <Profileimage/>
           </v-col>
-        </v-row>
+        </v-row><br/>
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">Location <span class="req">*</span></p>
@@ -91,8 +94,12 @@
 
 <script>
 import { mdiPencilOutline } from '@mdi/js';
+import Profileimage from './Profileimage';
   export default {
     name:'profile',
+    components:{
+    Profileimage,
+    },
   }
 </script>
 
@@ -144,5 +151,23 @@ import { mdiPencilOutline } from '@mdi/js';
 }
 .marginRight40{
     margin-right: 40px !important;
+}
+.ellipse
+{
+  position: absolute;
+    height: 82px;
+    left: 324px;
+    right: 1019px;
+    top: 430px;
+    background: #EAF5F5;
+    border-radius: 100%;
+}
+.image
+{
+  position: absolute;
+    left: 31.34%;
+    right: 8.34%;
+    top: 31.34%;
+    bottom: 12.5%;
 }
 </style>
