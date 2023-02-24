@@ -32,38 +32,13 @@
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-        <v-btn
-          type="submit"
-          class="post-btn form-submit-btn"
-          value="post"
-          color="#455A64"
-          @click="handleSubmit"
-          :disabled="jobType == ''"
-        >
-          Post Job
-        </v-btn>
-        <v-btn
-          class="form-submit-btn"
-          value="cancel"
-          rounded="2"
-          @click="isJobFormActive = false"
-        >
-          Cancel
-        </v-btn>
-        <v-snackbar
-          v-model="snackbar"
-          :timeout="2000"
-          color="#F4FEF2"
-          location="top"
-          class="snack_pos"
-        >
-          <div class="align-center">
-            <v-icon
-              class="snack-text-img"
-              icon="mdi-check-decagram"
-              style="color: green"
-            ></v-icon
-            ><span class="snack_text"> {{ snackbarText }}</span>
+
+        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="jobType == ''  "> Post Job </v-btn>
+        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="isJobFormActive = false"> Cancel </v-btn>
+        <v-snackbar  v-model="snackbar" :timeout = "300" color="#F4FEF2" location="top"  class="snack_pos">
+          <div class="flex-center">
+              <img class="snack-text-img" src="../assets/success-icon.svg"/>
+            <span class="snack_text">{{ snackbarText }}</span>
           </div>
         </v-snackbar>
       </v-card>
@@ -86,42 +61,54 @@ export default {
     const { isJobFormActive } = storeToRefs(store);
     return { perks, isJobFormActive };
   },
-  components: {
-    Internship,
-    FullTimeJob,
-  },
-  data: () => ({
-    isFormValid: false,
-    jobType: "",
-    formData: {
-      title: "",
-      description: "",
-      category: "",
-      experience: null,
-      link: "",
-      isPPO: "No",
-      perksOffered: [],
-      numberOfOpenings: "",
-      stipendType: "",
-      currencyType: "INR",
-      salaryTerm: "/month",
-      stipendAmount: "",
-      name: "",
-      email: "",
-      workModel: "",
-      number: "",
+
+    components: {
+        Internship,
+        FullTimeJob
     },
-    timeout: 2000,
+    data: () => ({
+        isFormValid: false,
+        jobType: "",
+        formData: {
+            jobType: "",
+            title: "",
+            description: "",
+            category:"",
+            experience: null,
+            link: "",
+            isPPO: "No",
+            otherPerks: [],
+            numberOfOpenings: "",
+            location:"",
+            stipendType: "",
+            salaryCurrency:"INR",
+            salaryTerm:"/month",
+            salary: "",
+            contactName: "",
+            contactEmail: "",
+            workModel: "",
+            contactPhone: "",
+            duration: 6,
+        },
+    //timeout: 2000,
     return: {
       snackbar: false,
     },
-  }),
-  methods: {
-    handleSubmit() {
-      if (this.isFormValid === true) this.snackbar = true;
-      this.snackbarText = "Job posted Successfully!";
-      this.isJobFormActive = false;
-      console.log("SUBMIT===>", this.formData);
+    }),
+    methods: {
+        async handleSubmit() {
+          if(this.isFormValid === true){
+            this.snackbar = true;
+            this.snackbarText = "Job posted Successfully!";
+            this.isJobFormActive = false;
+            this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
+            this.formData.duration = parseInt(this.formData.duration);
+            this.formData.jobType = this.jobType;
+            console.log("SUBMIT===>", this.formData)
+            //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+            //await $fetch( postUrl, { method: 'POST', body: this.formData } );
+          }
+        }
     },
   },
 };
@@ -178,7 +165,6 @@ p {
   margin-top: 3rem;
   min-width: 0;
 }
-
 .snack_text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -192,10 +178,12 @@ p {
 }
 
 .snack-text-img {
-  padding-bottom: 0.1rem;
+      margin-right: 10px;
+    height: 20px;
 }
 
-.align-center {
-  text-align: center;
+.flex-center {
+  display: flex;
+    justify-content: center;
 }
 </style>

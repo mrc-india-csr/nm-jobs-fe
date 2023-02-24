@@ -44,10 +44,15 @@
       <v-text-field class="text-field" v-model="formData.location" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
+      <p class="field-label">Open Until <span class="req">*</span>
+      </p>
+      <v-text-field class="text-field" type="date" v-model="formData.openUntil" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+    </div>
+    <div class="field-container">
       <p class="field-label">Salary <span class="req">*</span>
       </p>
       <div class="stipend-dropdown">
-        <v-select :items="currency" class="currency-symbol" v-model="formData.currencyType" density="compact" bg-color="white" variant="outlined" :rules="rules"></v-select>
+        <v-select :items="currency" class="currency-symbol" v-model="formData.salaryCurrency" density="compact" bg-color="white" variant="outlined" :rules="rules"></v-select>
         <v-text-field class="stipend" v-model="formData.minSalary" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
         <v-text-field class="stipend" v-model="formData.maxSalary" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
         <v-select :items="salaryTerm" class="salary-months" v-model="formData.salaryTerm" density="compact" bg-color="white" variant="outlined" :rules="rules"></v-select>
@@ -57,9 +62,9 @@
     <div class="field-container">
       <p class="field-label">Other perks </p>
       <v-row>
-        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
-        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
-        <v-checkbox class="form-checkbox"  v-model="formData.perksOffered" color="#AD793D" label="Employee wellness programme" value="wellness"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.otherPerks" color="#AD793D" label="Letter of recommendations" value="recommendationLetter"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.otherPerks" color="#AD793D" label="Flexible working hours" value="flexiblehours"></v-checkbox>
+        <v-checkbox class="form-checkbox"  v-model="formData.otherPerks" color="#AD793D" label="Employee wellness programme" value="wellness"></v-checkbox>
       </v-row>
     </div><br/>
     <div class="field-container height50 marginTop50">
@@ -71,17 +76,17 @@
     <div class="field-container">
       <p class="field-label">Name <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.name" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactName" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
       <p class="field-label">Email <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.email" :rules="emailRule" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactEmail" :rules="emailRule" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
     <div class="field-container">
       <p class="field-label">Number <span class="req">*</span>
       </p>
-      <v-text-field class="text-field" v-model="formData.number" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
+      <v-text-field class="text-field" v-model="formData.contactPhone" :rules="rules" density="compact" bg-color="white" variant="outlined"></v-text-field>
     </div>
   </div>
 </template>
