@@ -15,9 +15,15 @@
       table-class-name="color-change"
       hide-footer
     >
-      <v-chip :color="getColor(item.status)">
-        {{ item.status }}
-      </v-chip>
+      <template #item-status="{status}">
+        <v-chip class="ma-2" label :color="getColor(status)">
+          {{status}}
+        </v-chip>
+      </template>
+
+      <!-- <template >
+
+      </template> -->
     </Vue3EasyDataTable>
   </div>
 </template>
@@ -51,7 +57,7 @@ export default {
         value: "applicationReceived",
         width: 100,
       },
-      { text: "Status", value: "status" , width:250 },
+      { text: "Status", value: "status", width: 250 },
       { text: "Posted On", value: "postedOn" },
       { text: "Open Until", value: "openUntil" },
       { text: "Contact SPOC", value: "contactSPOC", width: 200 },
@@ -66,7 +72,7 @@ export default {
         location: "Chennai",
         openPositions: 10,
         applicationReceived: 5,
-        status: "open",
+        status: "Open",
         postedOn: Date(Date.now()).toString(),
         openUntil: Date(Date.now()).toString(),
         contactSPOC: "Hari",
@@ -79,7 +85,7 @@ export default {
         location: "Chennai",
         openPositions: 10,
         applicationReceived: 5,
-        status: "close",
+        status: "Closed",
         postedOn: Date(Date.now()).toString(),
         openUntil: Date(Date.now()).toString(),
         contactSPOC: "Hari",
@@ -95,11 +101,12 @@ export default {
     triggerJobForm() {
       store.isJobFormActive = true;
     },
-    getColor (status) {
-        if (status === "open") return 'red'
-        else if (status === "close") return 'orange'
-        else return 'green'
-      },
+    getColor(status) {
+      // console.log("Coming here");
+      if (status === "Open") return "green";
+      else if (status === "Closed") return "red";
+      else return "green";
+    },
   },
 };
 </script>

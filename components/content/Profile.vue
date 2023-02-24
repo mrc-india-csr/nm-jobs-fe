@@ -25,7 +25,8 @@
             <p class="profile-field-label">Company Description <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input class="profile-text-area" />
+            <textarea class = "profile-text-area"> </textarea>
+            <!-- <input class="profile-text-area" /> -->
           </v-col>
         </v-row>
         <v-row class="form-row">
@@ -141,11 +142,18 @@ import Profileimage from './Profileimage';
 .profile-text-area {
     border: 1px solid rgba(172, 172, 172, 1);
     padding: 12px 8px;
-    height:100px;        
+    height:7.813rem;        
     margin : 5px 0px;
     border-radius: 5px;
-    width: 32rem;
+    width: 36rem;
 }
+
+/* height: 125px;
+width: 576px;
+left: 431px;
+top: 307px;
+border-radius: 3px; */
+
 .location-dropdown{
     display: flex;
 }
