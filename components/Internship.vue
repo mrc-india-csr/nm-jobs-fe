@@ -17,10 +17,16 @@
         Internship Description <span class="req">*</span>
       </p>
       <!-- File Upload -->
-      <v-btn class="uploadBtn" @click="selectFile">
-        <img class="icon" src="../assets/upload-icon.svg" /> Upload File
+      <v-btn class="uploadBtn" @click="onButtonClick">
+        <img class="icon" src="../assets/upload-icon.svg" /> {{buttonText}}
       </v-btn>
-      <input class="d-none" ref="file" type="file" >
+      <input
+        class="d-none"
+        ref="file"
+        type="file"
+        @change="onFileChanged"
+        accept="image/*"
+      />
 
       <br />
       <v-textarea
@@ -296,14 +302,37 @@ export default {
     categories: ["Human resources", "Engineering", "Product Management"],
     currency: ["INR", "USD", "EUR"],
     salaryTerm: ["/week", "/month", "/year"],
+    defaultInternshipDesc: "Upload File",
+    selectedFile: null,
+    isSelecting: false
   }),
-  methods: {
-    selectFile(){
-      let fileInputElement = this.$refs.file;
-      fileInputElement.click();
-      
+  computed: {
+    buttonText() {
+      return this.selectedFile ? this.selectedFile.name : this.defaultInternshipDesc
     }
+  },
+  methods: {
+    // onButtonClick(){
+    //   let fileInputElement = this.$refs.file;
+    //   fileInputElement.click();
 
+
+    // },
+
+    onButtonClick() {
+      this.isSelecting = true
+      window.addEventListener('focus', () => {
+        this.isSelecting = false
+      }, { once: true })
+
+      this.$refs.file.click()
+    },
+    onFileChanged(e) {
+      this.selectedFile = e.target.files[0]
+      // console.log(this.selectedFile.name)
+
+
+    }
   }
 };
 </script>
