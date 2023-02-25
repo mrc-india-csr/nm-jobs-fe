@@ -83,56 +83,54 @@ export default {
     return { perks, isJobFormActive };
   },
 
-  components: {
-    Internship,
-    FullTimeJob,
-  },
-  data: () => ({
-    isFormValid: false,
-    jobType: "",
-    formData: {
-      jobType: "",
-      title: "",
-      description: "",
-      category: "",
-      experience: null,
-      link: "",
-      isPPO: "No",
-      otherPerks: [],
-      numberOfOpenings: "",
-      location: "",
-      stipendType: "",
-      salaryCurrency: "INR",
-      salaryTerm: "/month",
-      salary: "",
-      contactName: "",
-      contactEmail: "",
-      workModel: "",
-      contactPhone: "",
-      duration: 6,
+    components: {
+        Internship,
+        FullTimeJob
     },
+    data: () => ({
+        isFormValid: false,
+        jobType: "",
+        formData: {
+            jobType: "",
+            title: "",
+            description: "",
+            category:"",
+            experience: null,
+            link: "",
+            isPPO: "No",
+            otherPerks: [],
+            numberOfOpenings: "",
+            location:"",
+            stipendType: "",
+            salaryCurrency:"INR",
+            salaryTerm:"/month",
+            salary: "",
+            contactName: "",
+            contactEmail: "",
+            workModel: "",
+            contactPhone: "",
+            duration: 6,
+        },
     //timeout: 2000,
     return: {
       snackbar: false,
     },
-  }),
-  methods: {
-    async handleSubmit() {
-      if (this.isFormValid === true) {
-        this.snackbar = true;
-        this.snackbarText = "Job posted Successfully!";
-        this.isJobFormActive = false;
-        this.formData.numberOfOpenings = parseInt(
-          this.formData.numberOfOpenings
-        );
-        this.formData.duration = parseInt(this.formData.duration);
-        this.formData.jobType = this.jobType;
-        console.log("SUBMIT===>", this.formData);
-        //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
-        //await $fetch( postUrl, { method: 'POST', body: this.formData } );
-      }
+    }),
+    methods: {
+        async handleSubmit() {
+          if(this.isFormValid === true){
+            this.snackbar = true;
+            this.snackbarText = "Job posted Successfully!";
+            this.isJobFormActive = false;
+            this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
+            this.formData.duration = parseInt(this.formData.duration);
+            this.formData.jobType = this.jobType;
+            console.log("SUBMIT===>", this.formData)
+            //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+            //await $fetch( postUrl, { method: 'POST', body: this.formData } );
+          }
+        }
     },
-  },
 };
 </script>
 

@@ -27,7 +27,7 @@
           <v-col>
             <textarea class = "profile-text-area"> </textarea>
             <!-- <input class="profile-text-area" /> -->
-          </v-col>
+          </v-col>  
         </v-row>
         <v-row class="form-row">
           <v-col cols="4">
@@ -36,7 +36,7 @@
           <v-col>
             <v-select density="compact" class="form-dropdown"></v-select>
           </v-col>
-        </v-row><br/>
+        </v-row>
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">Profile Image <span class="req">*</span></p>
@@ -167,12 +167,16 @@ border-radius: 3px; */
     left: 324px;
     right: 1019px;
     top: 430px;
-    background: #EAF5F5;
+    background-color: #496968;
+    background: red;
     border-radius: 100%;
 }
 .image
 {
-  position: absolute;
+  position: sticky;
+  /* margin-top: 20px;
+  margin-bottom: 10rem; */
+  height: 50px;
     left: 31.34%;
     right: 8.34%;
     top: 31.34%;

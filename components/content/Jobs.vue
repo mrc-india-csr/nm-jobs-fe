@@ -21,6 +21,12 @@
         </v-chip>
       </template>
 
+      <template #item-operation = "item">
+      <div>
+        <img src = "../../assets/edit-icon.svg" @click = "editItem(item)"/>
+        </div>
+      </template>
+
       <!-- <template >
 
       </template> -->
@@ -62,6 +68,7 @@ export default {
       { text: "Open Until", value: "openUntil" },
       { text: "Contact SPOC", value: "contactSPOC", width: 200 },
       { text: "Open Until", value: "openUntil" },
+      { text: "Operation", value: "operation" },
     ];
     const items: Item[] = [
       {
@@ -107,6 +114,7 @@ export default {
       else if (status === "Closed") return "red";
       else return "green";
     },
+    
   },
 };
 </script>

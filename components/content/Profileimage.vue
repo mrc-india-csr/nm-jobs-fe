@@ -108,12 +108,13 @@ function handleClickDeleteFile(index: number) {
   }
 
 img .image-1{
-    position: absolute;
-height: 24px;
+position: absolute;
+height: 54px;
 left: 696px;
 right: 560px;
 top: 604px;
 background: #496968;
+
   }
 }
 </style>
