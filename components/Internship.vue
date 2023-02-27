@@ -258,7 +258,6 @@
 </template>
 <script>
 export default {
-
     name: "Internship",
     props: {
         formData: Object,
@@ -274,7 +273,8 @@ export default {
         ],
         emailRule: [
             (value) => {
-                if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))
+                    return true
                 return 'Must be a valid e-mail.'
             }
         ],
@@ -285,33 +285,29 @@ export default {
         selectedFile: null,
         isSelecting: false
     }),
-      computed: {
-    buttonText() {
-      return this.selectedFile ? this.selectedFile.name : this.defaultInternshipDesc
-    }
-  },
-    methods:{
-      spocCheckClicked()
-        {
-          console.log("CHECK-->",this.formData.copySpoc);
-          this.fetchSpocDetails();
-        },
-        
-    onButtonClick() {
-      this.isSelecting = true
-      window.addEventListener('focus', () => {
-        this.isSelecting = false
-      }, { once: true })
-
-      this.$refs.file.click()
+    computed: {
+        buttonText() {
+            return this.selectedFile ? this.selectedFile.name : this.defaultInternshipDesc
+        }
     },
-    onFileChanged(e) {
-      this.selectedFile = e.target.files[0]
-      // console.log(this.selectedFile.name)
-
-
+    methods: {
+        spocCheckClicked() {
+            this.fetchSpocDetails();
+        },
+        onButtonClick() {
+            this.isSelecting = true
+            window.addEventListener('focus', () => {
+                this.isSelecting = false
+            }, {
+                once: true
+            })
+            this.$refs.file.click()
+        },
+        onFileChanged(e) {
+            this.selectedFile = e.target.files[0]
+            // console.log(this.selectedFile.name)
+        }
     }
-      }
 };
 </script>
 

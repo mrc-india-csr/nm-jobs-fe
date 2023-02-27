@@ -172,13 +172,7 @@
     <div class="field-container height50 marginTop50">
       <p class="form-title">Contact Details</p>
       <v-row>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.copySpoc"
-          color="#AD793D"
-          label="Copy Company SPOC details"
-          value="spocDetails"
-        ></v-checkbox>
+        <v-checkbox class="form-checkbox" @change="spocCheckClicked" v-model="formData.copySpoc" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container">
@@ -223,6 +217,7 @@ export default {
   props: {
     formData: Object,
     perks: Object,
+    fetchSpocDetails: {type: Function}
   },
   data: () => ({
     rules: [
@@ -233,7 +228,7 @@ export default {
     ],
     emailRule: [
       (value) => {
-        if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
+          if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return true;
         return "Must be a valid e-mail.";
       },
     ],
@@ -270,6 +265,9 @@ export default {
       );
 
       this.$refs.file.click();
+    },
+    spocCheckClicked() {
+        this.fetchSpocDetails();
     },
     onFileChanged(e) {
       this.selectedFile = e.target.files[0];

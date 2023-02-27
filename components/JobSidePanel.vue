@@ -20,7 +20,7 @@
 
         <div class="job-form-container">        
           <Internship  v-if="jobType === 'Internship'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" />
-          <FullTimeJob v-else-if="jobType === 'Fulltime'" :formData="formData" :perks="perks" />
+          <FullTimeJob v-else-if="jobType === 'Fulltime'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" />
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
@@ -49,16 +49,16 @@ import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
 
 export default {
-  async setup() {
-    const runtimeConfig = useRuntimeConfig();
-    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/perks/";
-    const { data: perks } = await useFetch(url);
-    console.log("DATA-->", perks.value);
-    const store = useFormStore();
-    const { isJobFormActive } = storeToRefs(store);
-    return { perks, isJobFormActive };
-  },
+    async setup() {
+        const runtimeConfig = useRuntimeConfig();
+        const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/perks/";
+        const { data: perks } = await useFetch(url);
 
+        const store = useFormStore();
+        const {isJobFormActive} = storeToRefs(store);
+
+        return {perks, isJobFormActive};
+    },
     components: {
         Internship,
         FullTimeJob
@@ -67,84 +67,89 @@ export default {
         isFormValid: false,
         jobType: "",
         initialState: {
-          jobType: "",
-          title: "",
-          description: "",
-          category:"",
-          experience: null,
-          link: "",
-          isPPO: "No",
-          otherPerks: [],
-          numberOfOpenings: "",
-          location:"",
-          stipendType: "",
-          salaryCurrency:"INR",
-          salaryTerm:"/month",
-          salary: "",
-          maxSalary :"",
-          minSalary :"",
-          contactName: "",
-          contactEmail: "",
-          workModel: "",
-          contactPhone: "",
-          duration: 6,
-        },
-        formData: {
             jobType: "",
             title: "",
             description: "",
-            category:"",
+            category: "",
             experience: null,
             link: "",
             isPPO: "No",
             otherPerks: [],
             numberOfOpenings: "",
-            location:"",
+            location: "",
             stipendType: "",
-            salaryCurrency:"INR",
-            salaryTerm:"/month",
+            salaryCurrency: "INR",
+            salaryTerm: "/month",
             salary: "",
-            maxSalary :"",
-            minSalary :"",
+            maxSalary: "",
+            minSalary: "",
             contactName: "",
             contactEmail: "",
             workModel: "",
             contactPhone: "",
-            duration: 6,
+            duration: "",
         },
-    //timeout: 2000,
-    return: {
-      snackbar: false,
-    },
+        formData: {
+            jobType: "",
+            title: "",
+            description: "",
+            category: "",
+            experience: null,
+            link: "",
+            isPPO: "No",
+            otherPerks: [],
+            numberOfOpenings: "",
+            location: "",
+            stipendType: "",
+            salaryCurrency: "INR",
+            salaryTerm: "/month",
+            salary: "",
+            maxSalary: "",
+            minSalary: "",
+            contactName: "",
+            contactEmail: "",
+            workModel: "",
+            contactPhone: "",
+            duration: "",
+        },
+        //timeout: 2000,
+        return: {
+            snackbar: false,
+        },
     }),
     methods: {
         async handleSubmit() {
-          const runtimeConfig = useRuntimeConfig();
-          if(this.isFormValid === true){
-            this.snackbar = true;
-            this.snackbarText = "Job posted Successfully!";
-            this.isJobFormActive = false;
-            this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
-            this.formData.duration = parseInt(this.formData.duration);
-            this.formData.jobType = this.jobType;
-            console.log("SUBMIT===>", this.formData)
-            const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
-            await $fetch( postUrl, { method: 'POST', body: this.formData } );
-            this.jobType = "";
-            this.formData = this.initialState;
-          }
+            const runtimeConfig = useRuntimeConfig();
+            if (this.isFormValid === true) {
+                this.snackbar = true;
+                this.snackbarText = "Job posted Successfully!";
+                this.isJobFormActive = false;
+                this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
+                this.formData.duration = parseInt(this.formData.duration);
+                this.formData.jobType = this.jobType;
+
+                console.log("SUBMIT===>", this.formData)
+                const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+                await $fetch(postUrl, {
+                    method: 'POST',
+                    body: this.formData
+                });
+
+                this.jobType = "";
+                this.formData = this.initialState;
+            }
         },
-        
-        async fetchSpocDetails(){
-        const runtimeConfig = useRuntimeConfig();
-        const url = runtimeConfig.public.apiBaseUrl + '/api/jobs/spoc/';
-        const { data: spoc } = await useFetch(url);
-        console.log("SPOC details-->",spoc.value)
-        this.formData.contactName = spoc.value.name;
-        this.formData.contactEmail = spoc.value.email;
-        this.formData.contactName = spoc.value.phone_no;
+        async fetchSpocDetails() {
+            const runtimeConfig = useRuntimeConfig();
+            const url = runtimeConfig.public.apiBaseUrl + '/api/jobs/spoc/';
+            const {data: spoc} = await useFetch(url);
+
+            var spocDetails = spoc.value.data;
+            this.formData.contactName = spocDetails.name;
+            this.formData.contactEmail = spocDetails.email;
+            this.formData.contactPhone = spocDetails.phone_no;
         },
-        handleCancel(){
+        handleCancel() {
             this.isJobFormActive = false;
             this.jobType = "";
             this.formData = this.initialState;
