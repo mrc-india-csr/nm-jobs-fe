@@ -7,50 +7,26 @@
     class="job-panel"
   >
     <v-card :elevation="0" height="40px" text="Add job" class="d-flex">
-      <span @click="isJobFormActive = false" class="close-btn">x</span>
+      <span @click="handleCancel" class="close-btn">x</span>
     </v-card>
     <v-form v-model="isFormValid" @submit.prevent>
       <v-col cols="14">
         <hr class="divider" />
         <p>Job Type</p>
-
         <v-btn-toggle v-model="jobType" color="#496968" group>
-          <v-btn value="fullTime" rounded="2"> Full Time </v-btn>
-          <v-btn value="internShip"> Internship </v-btn>
+          <v-btn value="Fulltime" rounded="2"> Full Time </v-btn>
+          <v-btn value="Internship"> Internship </v-btn>
         </v-btn-toggle>
-        <div class="job-form-container">
-          <Internship
-            v-if="jobType === 'internShip'"
-            :formData="formData"
-            :perks="perks"
-          />
-          <FullTimeJob
-            v-else-if="jobType === 'fullTime'"
-            :formData="formData"
-            :perks="perks"
-          />
+
+        <div class="job-form-container">        
+          <Internship  v-if="jobType === 'Internship'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" />
+          <FullTimeJob v-else-if="jobType === 'Fulltime'" :formData="formData" :perks="perks" />
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
-        <v-btn
-          type="submit"
-          class="post-btn form-submit-btn"
-          value="post"
-          color="#455A64"
-          @click="handleSubmit"
-          :disabled="jobType == ''"
-        >
-          Post Job
-        </v-btn>
-        <v-btn
-          class="form-submit-btn"
-          value="cancel"
-          rounded="2"
-          @click="isJobFormActive = false"
-        >
-          Cancel
-        </v-btn>
-        <v-snackbar
+        <v-btn type="submit" class="post-btn form-submit-btn" value="post" color="#455A64" @click="handleSubmit" :disabled="!jobType"> Post Job </v-btn>
+        <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="handleCancel"> Cancel </v-btn>
+                <v-snackbar
           v-model="snackbar"
           :timeout="300"
           color="#F4FEF2"
@@ -90,6 +66,29 @@ export default {
     data: () => ({
         isFormValid: false,
         jobType: "",
+        initialState: {
+          jobType: "",
+          title: "",
+          description: "",
+          category:"",
+          experience: null,
+          link: "",
+          isPPO: "No",
+          otherPerks: [],
+          numberOfOpenings: "",
+          location:"",
+          stipendType: "",
+          salaryCurrency:"INR",
+          salaryTerm:"/month",
+          salary: "",
+          maxSalary :"",
+          minSalary :"",
+          contactName: "",
+          contactEmail: "",
+          workModel: "",
+          contactPhone: "",
+          duration: 6,
+        },
         formData: {
             jobType: "",
             title: "",
@@ -105,6 +104,8 @@ export default {
             salaryCurrency:"INR",
             salaryTerm:"/month",
             salary: "",
+            maxSalary :"",
+            minSalary :"",
             contactName: "",
             contactEmail: "",
             workModel: "",
@@ -118,6 +119,7 @@ export default {
     }),
     methods: {
         async handleSubmit() {
+          const runtimeConfig = useRuntimeConfig();
           if(this.isFormValid === true){
             this.snackbar = true;
             this.snackbarText = "Job posted Successfully!";
@@ -126,10 +128,27 @@ export default {
             this.formData.duration = parseInt(this.formData.duration);
             this.formData.jobType = this.jobType;
             console.log("SUBMIT===>", this.formData)
-            //const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
-            //await $fetch( postUrl, { method: 'POST', body: this.formData } );
+            const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
+            await $fetch( postUrl, { method: 'POST', body: this.formData } );
+            this.jobType = "";
+            this.formData = this.initialState;
           }
-        }
+        },
+        
+        async fetchSpocDetails(){
+        const runtimeConfig = useRuntimeConfig();
+        const url = runtimeConfig.public.apiBaseUrl + '/api/jobs/spoc/';
+        const { data: spoc } = await useFetch(url);
+        console.log("SPOC details-->",spoc.value)
+        this.formData.contactName = spoc.value.name;
+        this.formData.contactEmail = spoc.value.email;
+        this.formData.contactName = spoc.value.phone_no;
+        },
+        handleCancel(){
+            this.isJobFormActive = false;
+            this.jobType = "";
+            this.formData = this.initialState;
+        },
     },
 };
 </script>

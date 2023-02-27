@@ -162,27 +162,10 @@
     <div class="field-container">
       <p class="field-label">Other perks</p>
       <v-row>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Letter of recommendations"
-          value="recommendationLetter"
-        ></v-checkbox>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Flexible working hours"
-          value="flexiblehours"
-        ></v-checkbox>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Employee wellness programme"
-          value="wellness"
-        ></v-checkbox>
+
+        <div v-for="perk in perks.data">      
+          <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" :label="perk" :value="perk"></v-checkbox>
+        </div>
       </v-row>
     </div>
     <br />

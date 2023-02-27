@@ -188,27 +188,9 @@
     <div class="field-container">
       <p class="field-label">Other perks</p>
       <v-row>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Certificate"
-          value="certificate"
-        ></v-checkbox>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Letter of recommendations"
-          value="recommendationLetter"
-        ></v-checkbox>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.otherPerks"
-          color="#AD793D"
-          label="Flexible working hours"
-          value="flexiblehours"
-        ></v-checkbox>
+        <div v-for="perk in perks.data">      
+          <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" :label="perk" :value="perk"></v-checkbox>
+        </div>
       </v-row>
     </div>
     <div class="field-container margin-top10">
@@ -235,13 +217,8 @@
     <p class="form-title">Contact Details</p>
     <div class="field-container height50">
       <v-row>
-        <v-checkbox
-          class="form-checkbox"
-          v-model="formData.copySpoc"
-          color="#AD793D"
-          label="Copy Company SPOC details"
-          value="spocDetails"
-        ></v-checkbox>
+
+        <v-checkbox class="form-checkbox" @change="spocCheckClicked" v-model="formData.copySpoc" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
       </v-row>
     </div>
     <div class="field-container">
@@ -281,44 +258,45 @@
 </template>
 <script>
 export default {
-  name: "Internship",
-  props: {
-    formData: Object,
-    perks: Object,
-  },
-  data: () => ({
-    rules: [
-      (value) => {
-        if (value) return true;
-        return "Field is required";
-      },
-    ],
-    emailRule: [
-      (value) => {
-        if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
-        return "Must be a valid e-mail.";
-      },
-    ],
-    categories: ["Human resources", "Engineering", "Product Management"],
-    currency: ["INR", "USD", "EUR"],
-    salaryTerm: ["/week", "/month", "/year"],
-    defaultInternshipDesc: "Upload File",
-    selectedFile: null,
-    isSelecting: false
-  }),
-  computed: {
+
+    name: "Internship",
+    props: {
+        formData: Object,
+        perks: Object,
+        fetchSpocDetails: {type: Function}
+    },
+    data: () => ({
+        rules: [
+            value => {
+                if (value) return true
+                return 'Field is required'
+            },
+        ],
+        emailRule: [
+            (value) => {
+                if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+                return 'Must be a valid e-mail.'
+            }
+        ],
+        categories: ["Human resources", "Engineering", "Product Management"],
+        currency: ["INR", "USD", "EUR"],
+        salaryTerm: ["/week", "/month", "/year"],
+        defaultInternshipDesc: "Upload File",
+        selectedFile: null,
+        isSelecting: false
+    }),
+      computed: {
     buttonText() {
       return this.selectedFile ? this.selectedFile.name : this.defaultInternshipDesc
     }
   },
-  methods: {
-    // onButtonClick(){
-    //   let fileInputElement = this.$refs.file;
-    //   fileInputElement.click();
-
-
-    // },
-
+    methods:{
+      spocCheckClicked()
+        {
+          console.log("CHECK-->",this.formData.copySpoc);
+          this.fetchSpocDetails();
+        },
+        
     onButtonClick() {
       this.isSelecting = true
       window.addEventListener('focus', () => {
@@ -333,7 +311,7 @@ export default {
 
 
     }
-  }
+      }
 };
 </script>
 
