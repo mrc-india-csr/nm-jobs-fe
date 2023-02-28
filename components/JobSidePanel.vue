@@ -79,7 +79,7 @@ export default {
             location: "",
             stipendType: "",
             salaryCurrency: "INR",
-            salaryTerm: "/month",
+            salaryTerm: "month",
             salary: "",
             maxSalary: "",
             minSalary: "",
@@ -102,7 +102,7 @@ export default {
             location: "",
             stipendType: "",
             salaryCurrency: "INR",
-            salaryTerm: "/month",
+            salaryTerm: "month",
             salary: "",
             maxSalary: "",
             minSalary: "",
@@ -127,14 +127,13 @@ export default {
                 this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
                 this.formData.duration = parseInt(this.formData.duration);
                 this.formData.jobType = this.jobType;
-
+                this.formData.openUntil = this.parseDate(this.formData.openUntil);
                 console.log("SUBMIT===>", this.formData)
                 const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/postjob/';
-                await $fetch(postUrl, {
-                    method: 'POST',
-                    body: this.formData
-                });
-
+                  await $fetch(postUrl, {
+                      method: 'POST',
+                      body: this.formData
+                  });
                 this.jobType = "";
                 this.formData = this.initialState;
             }
@@ -154,6 +153,20 @@ export default {
             this.jobType = "";
             this.formData = this.initialState;
         },
+        parseDate(inputDate){
+          console.log("InputDate", inputDate);
+          
+          var date = new Date(inputDate);
+          var day =  date.getDate();
+          var month = date.getMonth()+1;
+          if (day < 10) {
+            day = '0' + day;
+          }
+        if (month < 10) {
+          month = '0'+ month;
+        }         
+          return month + "/" + day + "/" + date.getFullYear();
+        }
     },
 };
 </script>

@@ -280,7 +280,7 @@ export default {
         ],
         categories: ["Human resources", "Engineering", "Product Management"],
         currency: ["INR", "USD", "EUR"],
-        salaryTerm: ["/week", "/month", "/year"],
+        salaryTerm: ["week", "month", "year"],
         defaultInternshipDesc: "Upload File",
         selectedFile: null,
         isSelecting: false

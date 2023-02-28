@@ -58,6 +58,17 @@
       ></v-text-field>
     </div>
     <div class="field-container">
+      <p class="field-label">Number of Openings <span class="req">*</span></p>
+      <v-text-field
+        class="text-field"
+        v-model="formData.numberOfOpenings"
+        :rules="rules"
+        density="compact"
+        bg-color="white"
+        variant="outlined"
+      ></v-text-field>
+    </div>
+    <div class="field-container">
       <p class="field-label">Experience <span class="req">*</span></p>
       <v-select
         density="compact"
