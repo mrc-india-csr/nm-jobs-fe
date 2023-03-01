@@ -4,9 +4,15 @@
       <v-card elevation="0" height="50px" class="d-flex">
         <span class="section-header">My Profile</span>
         <v-spacer />
-        <v-btn class="profile-edit-btn">
+        <v-btn class="profile-edit-btn" @click="this.isEditing=!this.isEditing" v-if="!isEditing">
           <v-icon prepend-icon="mdi-vuetify" /> Edit
+        </v-btn>
+         <v-btn class="profile-cancel-btn" v-else-if="this.isEditing" @click="this.isEditing = false">Cancel</v-btn>
+         <v-btn class="profile-save-btn" v-if="this.isEditing" @click="save">
+          Save
         </v-btn><br />
+
+
       </v-card>
       <hr class="divider" />
       <div class="profile-subSection">
@@ -98,6 +104,15 @@ import { mdiPencilOutline } from '@mdi/js';
 import Profileimage from './Profileimage';
   export default {
     name:'profile',
+    data: () => ({
+        isEditing : false,
+
+    }),
+    methods:{
+      save(){
+        this.isEditing = !this.isEditing;
+      },
+    },
     components:{
     Profileimage,
     },
