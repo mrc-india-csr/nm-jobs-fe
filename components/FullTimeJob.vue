@@ -280,7 +280,7 @@ export default {
     spocCheckClicked() {
         this.fetchSpocDetails();
     },
-    onFileChanged(e) {
+    async onFileChanged(e) {
       this.selectedFile = e.target.files[0];
       
       const buffer =await this.selectedFile.arrayBuffer()
