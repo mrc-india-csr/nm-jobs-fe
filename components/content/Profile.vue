@@ -5,10 +5,13 @@
         <span class="section-header">My Profile</span>
         <v-spacer />
         <v-btn class="profile-edit-btn" @click="this.isEditing=!this.isEditing" v-if="!isEditing">
-          <v-icon prepend-icon="mdi-vuetify" /> Edit
+            <img src = "../../assets/edit-icon.svg" class = "component-icon">
+           Edit
         </v-btn>
-         <v-btn class="profile-cancel-btn" v-else-if="this.isEditing" @click="this.isEditing = false">Cancel</v-btn>
-         <v-btn class="profile-save-btn" v-if="this.isEditing" @click="save">
+         <v-btn variant="text" color="#707479" v-else-if="this.isEditing" @click="this.isEditing = false">
+          Cancel</v-btn>
+         <v-btn class=" btn-font" v-if="this.isEditing" @click="save" color="#455A64">
+          <img src = "../../assets/tick-icon.svg"  class = "component-icon" >
           Save
         </v-btn><br />
 
@@ -116,6 +119,15 @@ import Profileimage from './Profileimage';
     components:{
     Profileimage,
     },
+    setup() {
+      let isEditing =  false;
+    },
+    methods: {
+      editForm(){
+        this.isEditing = !this.isEditing;
+        console.log(this.isEditing);
+      }
+    },
   }
 </script>
 
@@ -124,6 +136,21 @@ import Profileimage from './Profileimage';
   font-size : 18px;
   font-weight : 600;
 }
+.component-icon{
+  padding-right: 0.3rem;
+}
+
+.save-icon{
+  color: #455A64;
+}
+
+.remove-border{
+padding: 0;
+background-color:white;
+
+
+}
+
 .profile-form-header{
   font-size : 18px;
   font-weight : 600;
