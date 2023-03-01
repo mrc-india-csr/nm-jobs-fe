@@ -4,16 +4,17 @@
       <v-card elevation="0" height="50px" class="d-flex">
         <span class="section-header">My Profile</span>
         <v-spacer />
-        <v-btn class="profile-edit-btn" @click="this.isEditing=!this.isEditing" v-if="!isEditing">
+        <v-btn class="profile-edit-btn" @click="isEditing=!isEditing" v-if="!isEditing">
             <img src = "../../assets/edit-icon.svg" class = "component-icon">
            Edit
         </v-btn>
-         <v-btn variant="text" color="#707479" v-else-if="this.isEditing" @click="this.isEditing = false">
+         <v-btn variant="plain" color="#707479" v-else-if="isEditing" @click="isEditing = false">
           Cancel</v-btn>
-         <v-btn class=" btn-font" v-if="this.isEditing" @click="save" color="#455A64">
+          <v-btn class=" btn-font" v-if="isEditing" @click="save" color="#455A64">
           <img src = "../../assets/tick-icon.svg"  class = "component-icon" >
           Save
-        </v-btn><br />
+        </v-btn>
+         <br />
 
 
       </v-card>
@@ -26,7 +27,11 @@
             <p class="profile-field-label">Company Name <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input class="profile-text-field" />
+            <input class="profile-text-field" 
+            ref="company_name" 
+            :value="user.companyName" 
+            :disabled="!isEditing"
+            :class="{view: !isEditing}"/>
           </v-col>
         </v-row>
         <v-row class="form-row">
@@ -34,7 +39,12 @@
             <p class="profile-field-label">Company Description <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <textarea class = "profile-text-area"> </textarea>
+            <textarea class = "profile-text-area"
+            ref="company_description" 
+            :value="user.companyDescription" 
+            :disabled="!isEditing"
+            :class="{view: !isEditing}"
+            > </textarea>
             <!-- <input class="profile-text-area" /> -->
           </v-col>  
         </v-row>
@@ -51,9 +61,11 @@
             <p class="profile-field-label">Profile Image <span class="req">*</span></p>
           </v-col>
           <v-col>
-              <div class="ellipse">
-              <img class ="image"  src="../../assets/company-name.svg"> 
-            </div>
+              <!-- <div class="ellipse">
+              <img 
+              class ="image"  
+              src="../../assets/company-name.svg"> 
+            </div> -->
         <Profileimage/>
           </v-col>
         </v-row><br/>
@@ -78,7 +90,12 @@
             <p class="profile-field-label">SPOC Name <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input class="profile-text-field" />
+            <input class="profile-text-field" 
+            ref="spoc_name" 
+            :value="user.spocName" 
+            :disabled="!isEditing"
+            :class="{view: !isEditing}"
+            />
           </v-col>
         </v-row>
         <v-row class="form-row">
@@ -86,7 +103,12 @@
             <p class="profile-field-label">SPOC E-mail <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input class="profile-text-field" />
+            <input class="profile-text-field" 
+            ref="spoc_email" 
+            :value="user.spocEmail" 
+            :disabled="!isEditing"
+            :class="{view: !isEditing}"
+            />
           </v-col>
         </v-row>
         <v-row class="form-row">
@@ -94,7 +116,12 @@
             <p class="profile-field-label">SPOC Number <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input class="profile-text-field" />
+            <input class="profile-text-field" 
+            ref="spoc_number" 
+            :value="user.spocNumber" 
+            :disabled="!isEditing"
+            :class="{view: !isEditing}"
+            />
           </v-col>
         </v-row>
       </div>
@@ -109,10 +136,22 @@ import Profileimage from './Profileimage';
     name:'profile',
     data: () => ({
         isEditing : false,
-
+        user:{
+          companyName:'',
+          companyDescription:'',
+          spoc_name:'',
+          spoc_email:'',
+          spoc_number:''
+        }
     }),
     methods:{
       save(){
+        console.log('Here')
+        this.user.companyName = this.$refs['company_name'].value;
+        this.user.companyDescription = this.$refs['company_description'].value;
+        this.user.spocName = this.$refs['spoc_name'].value;
+        this.user.spocEmail = this.$refs['spoc_email'].value;
+        this.user.spocNumber = this.$refs['spoc_number'].value;
         this.isEditing = !this.isEditing;
       },
     },
@@ -121,12 +160,6 @@ import Profileimage from './Profileimage';
     },
     setup() {
       let isEditing =  false;
-    },
-    methods: {
-      editForm(){
-        this.isEditing = !this.isEditing;
-        console.log(this.isEditing);
-      }
     },
   }
 </script>
@@ -147,8 +180,12 @@ import Profileimage from './Profileimage';
 .remove-border{
 padding: 0;
 background-color:white;
+}
 
-
+.view {
+  border-color: transparent;
+  background-color: initial;
+  color: initial
 }
 
 .profile-form-header{
