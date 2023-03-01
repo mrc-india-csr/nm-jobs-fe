@@ -282,6 +282,10 @@ export default {
     },
     onFileChanged(e) {
       this.selectedFile = e.target.files[0];
+      
+      const buffer =await this.selectedFile.arrayBuffer()
+      console.log(buffer)
+      console.log(typeof(buffer))
       // console.log(this.selectedFile.name)
     },
   },

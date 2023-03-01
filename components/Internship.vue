@@ -18,7 +18,7 @@
       </p>
       <!-- File Upload -->
       <v-btn class="uploadBtn" @click="onButtonClick">
-        <img class="icon" src="../assets/upload-icon.svg" /> {{buttonText}}
+        <img class="icon" src="../assets/upload-icon.svg" /> {{ buttonText }}
       </v-btn>
       <input
         class="d-none"
@@ -188,8 +188,14 @@
     <div class="field-container">
       <p class="field-label">Other perks</p>
       <v-row>
-        <div v-for="perk in perks.data">      
-          <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" :label="perk" :value="perk"></v-checkbox>
+        <div v-for="perk in perks.data">
+          <v-checkbox
+            class="form-checkbox"
+            v-model="formData.otherPerks"
+            color="#AD793D"
+            :label="perk"
+            :value="perk"
+          ></v-checkbox>
         </div>
       </v-row>
     </div>
@@ -217,8 +223,14 @@
     <p class="form-title">Contact Details</p>
     <div class="field-container height50">
       <v-row>
-
-        <v-checkbox class="form-checkbox" @change="spocCheckClicked" v-model="formData.copySpoc" color="#AD793D" label="Copy Company SPOC details" value="spocDetails"></v-checkbox>
+        <v-checkbox
+          class="form-checkbox"
+          @change="spocCheckClicked"
+          v-model="formData.copySpoc"
+          color="#AD793D"
+          label="Copy Company SPOC details"
+          value="spocDetails"
+        ></v-checkbox>
       </v-row>
     </div>
     <div class="field-container">
@@ -258,56 +270,90 @@
 </template>
 <script>
 export default {
-    name: "Internship",
-    props: {
-        formData: Object,
-        perks: Object,
-        fetchSpocDetails: {type: Function}
+  name: "Internship",
+  props: {
+    formData: Object,
+    perks: Object,
+    fetchSpocDetails: { type: Function },
+  },
+  data: () => ({
+    rules: [
+      (value) => {
+        if (value) return true;
+        return "Field is required";
+      },
+    ],
+    emailRule: [
+      (value) => {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))
+          return true;
+        return "Must be a valid e-mail.";
+      },
+    ],
+    categories: ["Human resources", "Engineering", "Product Management"],
+    currency: ["INR", "USD", "EUR"],
+    salaryTerm: ["week", "month", "year"],
+    defaultInternshipDesc: "Upload File",
+    selectedFile: null,
+    isSelecting: false,
+  }),
+  computed: {
+    buttonText() {
+      return this.selectedFile
+        ? this.selectedFile.name
+        : this.defaultInternshipDesc;
     },
-    data: () => ({
-        rules: [
-            value => {
-                if (value) return true
-                return 'Field is required'
-            },
-        ],
-        emailRule: [
-            (value) => {
-                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))
-                    return true
-                return 'Must be a valid e-mail.'
-            }
-        ],
-        categories: ["Human resources", "Engineering", "Product Management"],
-        currency: ["INR", "USD", "EUR"],
-        salaryTerm: ["week", "month", "year"],
-        defaultInternshipDesc: "Upload File",
-        selectedFile: null,
-        isSelecting: false
-    }),
-    computed: {
-        buttonText() {
-            return this.selectedFile ? this.selectedFile.name : this.defaultInternshipDesc
-        }
+  },
+  methods: {
+    spocCheckClicked() {
+      this.fetchSpocDetails();
     },
-    methods: {
-        spocCheckClicked() {
-            this.fetchSpocDetails();
+    onButtonClick() {
+      this.isSelecting = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
         },
-        onButtonClick() {
-            this.isSelecting = true
-            window.addEventListener('focus', () => {
-                this.isSelecting = false
-            }, {
-                once: true
-            })
-            this.$refs.file.click()
-        },
-        onFileChanged(e) {
-            this.selectedFile = e.target.files[0]
-            // console.log(this.selectedFile.name)
+        {
+          once: true,
         }
-    }
+      );
+      this.$refs.file.click();
+    },
+    async onFileChanged(e) {
+      this.selectedFile = e.target.files[0];
+
+      const buffer =await this.selectedFile.arrayBuffer()
+      console.log(buffer)
+      console.log(typeof(buffer))
+
+      // const buffer = this.selectedFile.arrayBuffer();
+      // let uintImage = new Uint8Array(buffer);
+
+
+      // let arrayBuffer = uintImage.buffer;
+
+      // // let finalByteArray = bytearray(byteArr);
+      // console.log(arrayBuffer);
+      // console.log(typeof(arrayBuffer))
+      // console.log(typeof(byteArray))
+
+      // const byteFile = await getAsByteArray(this.selectedFile)
+      // const reader = new FileReader()
+      // reader.readAsText(this.selectedFile);
+
+      // reader.onload = () => {
+
+      //   // this.image = reader.result.split(',')[1]
+
+      //   console.log(typeof(reader.result))
+      //   // console.log(this.image)
+      //   // console.log(typeof(this.image))
+      // }
+      // console.log(random)
+    },
+  },
 };
 </script>
 
