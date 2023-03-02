@@ -173,7 +173,7 @@
     </v-card>
     <v-snackbar
       v-model="snackbar"
-      :timeout="3000"
+      :timeout="4000"
       color="#F4FEF2"
       location="top"
       class="snack_pos"
@@ -216,7 +216,7 @@ export default {
       this.user.companySector = this.$refs["company_sector"].value;
       this.isEditing = !this.isEditing;
       this.snackbar = true;
-      this.snackbarText = "Job posted Successfully!";
+      this.snackbarText = "Profile Successfully Updated!";
       console.log(this.snackbar);
     },
   },
@@ -230,6 +230,30 @@ export default {
 </script>
 
 <style>
+
+.snack_pos {
+  margin-top: 3rem;
+  min-width: 0;
+}
+.snack_text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  color: #323130;
+}
+
+.snack-text-img {
+  padding-top: 5px;
+  margin-right: 2px;
+  margin-right: 10px;
+  height: 20px;
+}
+
 .section-header {
   font-size: 18px;
   font-weight: 600;
