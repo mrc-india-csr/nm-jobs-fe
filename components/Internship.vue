@@ -368,9 +368,9 @@ export default {
 }
 .form-dropdown {
   margin-right: 30px;
-  max-width: 150px;
   width: 180px !important;
   margin-top: 5px;
+  height: 40px;
 }
 .form-dropdown > .v-input__control {
   width: 180px !important;
