@@ -274,7 +274,8 @@ export default {
   props: {
     formData: Object,
     perks: Object,
-    fetchSpocDetails: { type: Function },
+    fetchSpocDetails: { type : Function },
+    handleFileChange:  {type : Function }
   },
   data: () => ({
     rules: [
@@ -321,12 +322,16 @@ export default {
       );
       this.$refs.file.click();
     },
-    async onFileChanged(e) {
+      onFileChanged(e) {
       this.selectedFile = e.target.files[0];
-
-      const buffer =await this.selectedFile.arrayBuffer()
-      console.log(buffer)
-      console.log(typeof(buffer))
+      this.handleFileChange(this.selectedFile);
+      //console.log("selectedFile",this.selectedFile,e.target.files);
+      //const buffer =await this.selectedFile.arrayBuffer()
+      //console.log(buffer)
+      //console.log(typeof(buffer))
+      //let byteArray = new Int8Array(buffer)
+      
+      //console.log("View",byteArray);
 
       // const buffer = this.selectedFile.arrayBuffer();
       // let uintImage = new Uint8Array(buffer);

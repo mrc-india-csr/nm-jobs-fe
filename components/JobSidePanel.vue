@@ -19,8 +19,8 @@
         </v-btn-toggle>
 
         <div class="job-form-container">        
-          <Internship  v-if="jobType === 'Internship'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" />
-          <FullTimeJob v-else-if="jobType === 'Fulltime'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" />
+          <Internship  v-if="jobType === 'Internship'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" :handleFileChange="handleFileChange"/>
+          <FullTimeJob v-else-if="jobType === 'Fulltime'" :formData="formData" :perks="perks" :fetchSpocDetails="fetchSpocDetails" :handleFileChange="handleFileChange" />
         </div>
       </v-col>
       <v-card :elevation="4" height="50px" class="d-flex flex-row-reverse">
@@ -73,6 +73,7 @@ export default {
             category: "",
             experience: null,
             link: "",
+            descFile : null,
             isPPO: "No",
             otherPerks: [],
             numberOfOpenings: "",
@@ -93,6 +94,7 @@ export default {
             jobType: "",
             title: "",
             description: "",
+            descFile : null,
             category: "",
             experience: null,
             link: "",
@@ -153,9 +155,16 @@ export default {
             this.jobType = "";
             this.formData = this.initialState;
         },
-        parseDate(inputDate){
-          console.log("InputDate", inputDate);
-          
+        async handleFileChange(file){
+            const buffer = await file.arrayBuffer()
+            let uintImage = new Uint8Array(buffer);
+            var fileByteArray = [];
+            for (var i = 0; i < uintImage.length; i++) {
+              fileByteArray.push(uintImage[i]);
+            }
+            this.formData.descFile = fileByteArray;
+        },
+        parseDate(inputDate){          
           var date = new Date(inputDate);
           var day =  date.getDate();
           var month = date.getMonth()+1;
