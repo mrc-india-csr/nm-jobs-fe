@@ -74,7 +74,7 @@
               class="form-dropdown v-select"
               :items="sectors"
               ref="company_sector"
-              :value="user.companySector"
+              :value="user.sector"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
               variant="solo"
@@ -131,7 +131,7 @@
             <input
               class="profile-text-field"
               ref="spoc_name"
-              :value="user.spocName"
+              :value="user.contactName"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -147,7 +147,7 @@
             <input
               class="profile-text-field"
               ref="spoc_email"
-              :value="user.spocEmail"
+              :value="user.contactEmail"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -163,7 +163,7 @@
             <input
               class="profile-text-field"
               ref="spoc_number"
-              :value="user.spocNumber"
+              :value="user.contactPhone"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -196,24 +196,38 @@ export default {
     user: {
       companyName: "",
       companyDescription: "",
-      spocName: "",
-      spocEmail: "",
-      spocNumber: "",
-      companySector: "",
+      contactName: "",
+      contactEmail: "",
+      contactPhone: "",
+      sector: "",
+      profileImage: "null",
+      country: "",
+      city: "",
     },
     snackbar: false,
 
     sectors: ["Automotive", "IT-ITES", "Manufacturing", "Banking, Financial Services and Insurance", "Logistics", "Aerospace & Aviation", "Construction", "Electronics & Hardware", "Leather"],
   }),
   methods: {
-    save() {
-      console.log("Here");
+    async save() {
+      const runtimeConfig = useRuntimeConfig();
       this.user.companyName = this.$refs["company_name"].value;
       this.user.companyDescription = this.$refs["company_description"].value;
-      this.user.spocName = this.$refs["spoc_name"].value;
-      this.user.spocEmail = this.$refs["spoc_email"].value;
-      this.user.spocNumber = this.$refs["spoc_number"].value;
-      this.user.companySector = this.$refs["company_sector"].value;
+      this.user.contactName = this.$refs["spoc_name"].value;
+      this.user.contactEmail = this.$refs["spoc_email"].value;
+      this.user.contactPhone = this.$refs["spoc_number"].value;
+      this.user.sector = this.$refs["company_sector"].value;
+      this.user.country = "India";
+      this.user.city = "Chennai";
+      this.user.profileImage = "null",
+      console.log("User", this.user);
+
+      const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/profile';
+        await $fetch(postUrl, {
+            method: 'POST',
+            body: this.user
+        });
+
       this.isEditing = !this.isEditing;
       this.snackbar = true;
       this.snackbarText = "Profile Successfully Updated!";
