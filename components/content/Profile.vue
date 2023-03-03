@@ -203,7 +203,7 @@ export default {
     },
     snackbar: false,
 
-    sectors: ["Manufacturing", "Automotive"],
+    sectors: ["Automotive", "IT-ITES", "Manufacturing", "Banking, Financial Services and Insurance", "Logistics", "Aerospace & Aviation", "Construction", "Electronics & Hardware", "Leather"],
   }),
   methods: {
     save() {
