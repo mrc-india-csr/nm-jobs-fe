@@ -173,7 +173,7 @@
     </v-card>
     <v-snackbar
       v-model="snackbar"
-      :timeout="4000"
+      :timeout="2000"
       color="#F4FEF2"
       location="top"
       class="snack_pos"
@@ -349,7 +349,5 @@ border-radius: 3px; */
   bottom: 12.5%;
 }
 
-.random .v-select {
-  color: red;
-}
+
 </style>

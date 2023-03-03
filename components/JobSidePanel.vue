@@ -28,7 +28,7 @@
         <v-btn class="form-submit-btn" value="cancel" rounded="2" @click="handleCancel"> Cancel </v-btn>
                 <v-snackbar
           v-model="snackbar"
-          :timeout="300"
+          :timeout="2000"
           color="#F4FEF2"
           location="top"
           class="snack_pos"
@@ -115,9 +115,7 @@ export default {
             duration: "",
         },
         //timeout: 2000,
-        return: {
             snackbar: false,
-        },
     }),
     methods: {
         async handleSubmit() {
