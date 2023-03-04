@@ -37,16 +37,18 @@ const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
 });
 
 watch(state, () => {
-  console.log('state', state);
+  const result = JSON.parse(JSON.stringify(new Proxy(state,{})))
+  console.log('state', result.files[0]);
+  //Check here
 });
 
 watch(isDragActive, () => {
-  console.log('isDragActive', isDragActive.value, rest);
+  // console.log('isDragActive', isDragActive.value, rest);
 });
 
 function onDrop(acceptFiles: never[], rejectReasons: any) {
-  console.log(acceptFiles);
-  console.log(rejectReasons);
+  console.log("Accept " + acceptFiles);
+  // console.log(rejectReasons);
   state.files = acceptFiles;
 }
 
