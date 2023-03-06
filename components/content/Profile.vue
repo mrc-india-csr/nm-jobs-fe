@@ -80,8 +80,8 @@
               variant="solo"
             >
             </v-select>
-          </v-col>
-        </v-row><br/><br/>
+          </v-col> </v-row
+        ><br /><br />
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">
@@ -90,13 +90,11 @@
           </v-col>
           <v-col>
             <div class="ellipse">
-              <img 
-              class ="image"  
-              src="../../assets/company-name.svg"> 
+              <img class="image" src="../../assets/company-name.svg" />
             </div>
             <Profileimage />
           </v-col> </v-row
-        ><br /><br/>
+        ><br /><br />
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">
@@ -108,7 +106,7 @@
               <v-select
                 class="form-dropdown marginRight40 v-select"
                 density="compact"
-                :items = "countries"
+                :items="countries"
                 ref="location_country"
                 variant="solo"
                 :value="user.locationcountry"
@@ -119,7 +117,7 @@
               <v-select
                 class="form-dropdown marginRight40 v-select"
                 density="compact"
-                :items = "cities"
+                :items="cities"
                 ref="location_city"
                 variant="solo"
                 :value="user.locationcity"
@@ -184,19 +182,19 @@
           </v-col>
         </v-row>
       </div>
-    
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="2000"
-      :color="snackColor()"
-      location="top"
-      class="snack-pos"
-    >
-      <div class="flex-center">
-        <img class="snack-text-img" :src="snackImgSrc()" />
-        <span class="snack-text">{{ snackbarText }}</span>
-      </div>
-    </v-snackbar>
+
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="2000"
+        :color="snackColor()"
+        location="top"
+        class="snack-pos"
+      >
+        <div class="flex-center">
+          <img class="snack-text-img" :src="snackImgSrc()" />
+          <span class="snack-text">{{ snackbarText }}</span>
+        </div>
+      </v-snackbar>
     </v-card>
   </div>
 </template>
@@ -223,57 +221,62 @@ export default {
       locationcity: "",
     },
     snackbar: false,
-    isHandleSubmit:false,
-
+    isHandleSubmit: false,
+    countries: ["India", "Australia", "China"],
+    cities: ["Mumbai", "Chennai", "Kolkata"],
+    sectors: [
+      "Automotive",
+      "IT-ITES",
+      "Manufacturing",
+      "Banking, Financial Services and Insurance",
+      "Logistics",
+      "Aerospace & Aviation",
+      "Construction",
+      "Electronics & Hardware",
+      "Leather",
+    ],
   }),
 
   methods: {
     async save() {
       const runtimeConfig = useRuntimeConfig();
 
-      try{
-      countries:['India','Australia','China'],
-      cities:['Mumbai','Chennai','Kolkata'],
-      sectors: ["Automotive", "IT-ITES", "Manufacturing", "Banking, Financial Services and Insurance", "Logistics", "Aerospace & Aviation", "Construction", "Electronics & Hardware", "Leather"],
+      try {
+        this.user.companyName = this.$refs["company_name"].value;
+        this.user.companyDescription = this.$refs["company_description"].value;
+        this.user.contactName = this.$refs["spoc_name"].value;
+        this.user.contactEmail = this.$refs["spoc_email"].value;
+        this.user.contactPhone = this.$refs["spoc_number"].value;
+        this.user.sector = this.$refs["company_sector"].value;
+        this.user.locationcountry = this.$refs["location_country"].value;
+        this.user.locationcity = this.$refs["location_city"].value;
+        (this.user.profileImage = "null"), console.log("User", this.user);
 
-      this.user.companyName = this.$refs["company_name"].value;
-      this.user.companyDescription = this.$refs["company_description"].value;
-      this.user.contactName = this.$refs["spoc_name"].value;
-      this.user.contactEmail = this.$refs["spoc_email"].value;
-      this.user.contactPhone = this.$refs["spoc_number"].value;
-      this.user.sector = this.$refs["company_sector"].value;
-      this.user.locationcountry = this.$refs["location_country"].value;
-      this.user.locationcity = this.$refs["location_city"].value;
-      this.user.profileImage = "null",
-      console.log("User", this.user);
-
-      const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/profile';
+        const postUrl = runtimeConfig.public.apiBaseUrl + "/api/jobs/profile";
         await $fetch(postUrl, {
-            method: 'POST',
-            body: this.user
+          method: "POST",
+          body: this.user,
         });
 
-      this.isEditing = !this.isEditing;
-      this.snackbar = true;
-      this.snackbarText = "Profile Successfully Updated!";
-      this.isJobFormActive = true;
-      }
-      catch(error){
+        this.isEditing = !this.isEditing;
         this.snackbar = true;
-        this.snackbarText = "something went wrong. Try again later!";
+        this.snackbarText = "Profile Successfully Updated!";
+        this.isJobFormActive = true;
+      } catch (error) {
+        this.snackbar = true;
+        this.snackbarText = "Something went wrong. Try again later!";
         this.isJobFormActive = false;
         console.log(error);
       }
     },
 
-    snackImgSrc(){
+    snackImgSrc() {
       return this.isJobFormActive ? successIcon : cancelIcon;
     },
 
-    snackColor(){
-      return this.isJobFormActive ? '#F4FEF2' : '#FeF2F2';
-    }
-
+    snackColor() {
+      return this.isJobFormActive ? "#F4FEF2" : "#FeF2F2";
+    },
   },
   components: {
     Profileimage,
@@ -285,7 +288,6 @@ export default {
 </script>
 
 <style>
-
 .snack-pos {
   margin-top: 3rem;
   min-width: 0;
@@ -306,8 +308,8 @@ export default {
 
 .snack-text-img {
   /* padding-top: 0.4rem;   */
-   
-   height: 20px;
+
+  height: 20px;
 }
 
 .section-header {
@@ -380,7 +382,7 @@ border-radius: 3px; */
 
 .location-dropdown {
   display: flex;
-  margin-right:7.5rem;
+  margin-right: 7.5rem;
 }
 .marginRight40 {
   margin-right: 40px !important;
@@ -392,19 +394,16 @@ border-radius: 3px; */
   right: 1019px;
   top: 464px;
   background-color: #496968;
-  background: #EAF5F5;
+  background: #eaf5f5;
   border-radius: 100%;
 }
-.image 
-{
+.image {
   position: absolute;
-  margin-left:1.2rem;
-  margin-top:1rem;
+  margin-left: 1.2rem;
+  margin-top: 1rem;
   left: 8.34%;
   right: 8.34%;
   top: 12.5%;
   bottom: 12.5%;
 }
-
-
 </style>
