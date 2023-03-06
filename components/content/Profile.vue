@@ -74,14 +74,14 @@
               class="form-dropdown v-select"
               :items="sectors"
               ref="company_sector"
-              :value="user.companySector"
+              :value="user.sector"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
               variant="solo"
             >
             </v-select>
           </v-col>
-        </v-row>
+        </v-row><br/><br/>
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">
@@ -89,14 +89,14 @@
             </p>
           </v-col>
           <v-col>
-            <!-- <div class="ellipse">
+            <div class="ellipse">
               <img 
               class ="image"  
               src="../../assets/company-name.svg"> 
-            </div> -->
+            </div>
             <Profileimage />
           </v-col> </v-row
-        ><br />
+        ><br /><br/>
         <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">
@@ -106,12 +106,26 @@
           <v-col>
             <div class="location-dropdown">
               <v-select
-                class="form-dropdown marginRight40"
+                class="form-dropdown marginRight40 v-select"
                 density="compact"
+                :items = "countries"
+                ref="location_country"
+                variant="solo"
+                :value="user.locationcountry"
+                :disabled="!isEditing"
+                :class="{ view: !isEditing }"
+                placeholder="Country"
               ></v-select>
               <v-select
-                class="form-dropdown marginRight40"
+                class="form-dropdown marginRight40 v-select"
                 density="compact"
+                :items = "cities"
+                ref="location_city"
+                variant="solo"
+                :value="user.locationcity"
+                :disabled="!isEditing"
+                :class="{ view: !isEditing }"
+                placeholder="City"
               ></v-select>
             </div>
           </v-col>
@@ -131,7 +145,7 @@
             <input
               class="profile-text-field"
               ref="spoc_name"
-              :value="user.spocName"
+              :value="user.contactName"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -147,7 +161,7 @@
             <input
               class="profile-text-field"
               ref="spoc_email"
-              :value="user.spocEmail"
+              :value="user.contactEmail"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -163,7 +177,7 @@
             <input
               class="profile-text-field"
               ref="spoc_number"
-              :value="user.spocNumber"
+              :value="user.contactPhone"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
             />
@@ -200,26 +214,45 @@ export default {
     user: {
       companyName: "",
       companyDescription: "",
-      spocName: "",
-      spocEmail: "",
-      spocNumber: "",
-      companySector: "",
+      contactName: "",
+      contactEmail: "",
+      contactPhone: "",
+      sector: "",
+      profileImage: "null",
+      locationcountry: "",
+      locationcity: "",
     },
-    snackbar: false,
     snackbar: false,
     isHandleSubmit:false,
 
-    sectors: ["Manufacturing", "Automotive"],
   }),
+
   methods: {
-    save() {
+    async save() {
+      const runtimeConfig = useRuntimeConfig();
+
       try{
+      countries:['India','Australia','China'],
+      cities:['Mumbai','Chennai','Kolkata'],
+      sectors: ["Automotive", "IT-ITES", "Manufacturing", "Banking, Financial Services and Insurance", "Logistics", "Aerospace & Aviation", "Construction", "Electronics & Hardware", "Leather"],
+
       this.user.companyName = this.$refs["company_name"].value;
       this.user.companyDescription = this.$refs["company_description"].value;
-      this.user.spocName = this.$refs["spoc_name"].value;
-      this.user.spocEmail = this.$refs["spoc_email"].value;
-      this.user.spocNumber = this.$refs["spoc_number"].value;
-      this.user.companySector = this.$refs["company_sector"].value;
+      this.user.contactName = this.$refs["spoc_name"].value;
+      this.user.contactEmail = this.$refs["spoc_email"].value;
+      this.user.contactPhone = this.$refs["spoc_number"].value;
+      this.user.sector = this.$refs["company_sector"].value;
+      this.user.locationcountry = this.$refs["location_country"].value;
+      this.user.locationcity = this.$refs["location_city"].value;
+      this.user.profileImage = "null",
+      console.log("User", this.user);
+
+      const postUrl = runtimeConfig.public.apiBaseUrl + '/api/jobs/profile';
+        await $fetch(postUrl, {
+            method: 'POST',
+            body: this.user
+        });
+
       this.isEditing = !this.isEditing;
       this.snackbar = true;
       this.snackbarText = "Profile Successfully Updated!";
@@ -347,6 +380,7 @@ border-radius: 3px; */
 
 .location-dropdown {
   display: flex;
+  margin-right:7.5rem;
 }
 .marginRight40 {
   margin-right: 40px !important;
@@ -356,19 +390,19 @@ border-radius: 3px; */
   height: 82px;
   left: 324px;
   right: 1019px;
-  top: 430px;
+  top: 464px;
   background-color: #496968;
-  background: red;
+  background: #EAF5F5;
   border-radius: 100%;
 }
-.image {
-  position: sticky;
-  /* margin-top: 20px;
-  margin-bottom: 10rem; */
-  height: 50px;
-  left: 31.34%;
+.image 
+{
+  position: absolute;
+  margin-left:1.2rem;
+  margin-top:1rem;
+  left: 8.34%;
   right: 8.34%;
-  top: 31.34%;
+  top: 12.5%;
   bottom: 12.5%;
 }
 
