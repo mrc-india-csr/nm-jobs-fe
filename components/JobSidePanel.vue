@@ -29,13 +29,13 @@
                 <v-snackbar
           v-model="snackbar"
           :timeout="2000"
-          color="#F4FEF2"
+          :color="snackColor()"
           location="top"
-          class="snack_pos"
+          class="snack-pos"
         >
           <div class="flex-center">
-            <img class="snack-text-img" src="../assets/success-icon.svg" />
-            <span class="snack_text">{{ snackbarText }}</span>
+            <img class="snack-text-img" :src="snackImgSrc()" />
+            <span class="snack-text">{{ snackbarText }}</span>
           </div>
         </v-snackbar>
       </v-card>
@@ -47,6 +47,8 @@
 import Internship from "./Internship";
 import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
+import successIcon from "../assets/success-icon.svg";
+import cancelIcon from "../assets/cancel-icon.svg";
 
 export default {
     async setup() {
@@ -115,15 +117,16 @@ export default {
             duration: "",
         },
         //timeout: 2000,
-            snackbar: false,
+        snackbar: false,
+        isHandleSubmit:false,
+
     }),
     methods: {
         async handleSubmit() {
             const runtimeConfig = useRuntimeConfig();
-            if (this.isFormValid === true) {
-                this.snackbar = true;
-                this.snackbarText = "Job posted Successfully!";
-                this.isJobFormActive = false;
+            try{
+              if (this.isFormValid === true) {
+               
                 this.formData.numberOfOpenings = parseInt(this.formData.numberOfOpenings);
                 this.formData.duration = parseInt(this.formData.duration);
                 this.formData.jobType = this.jobType;
@@ -136,7 +139,20 @@ export default {
                   });
                 this.jobType = "";
                 this.formData = this.initialState;
+                this.isHandleSubmit=true;
+                this.snackbar = true;
+                this.snackbarText = "Job posted Successfully!";
+                this.isJobFormActive = true;
             }
+            }
+            catch(error){
+                this.snackbar = true;
+                this.snackbarText = "something went wrong. Try again later!";
+                this.isJobFormActive = false;
+                console.log(error);
+
+            }
+            
         },
         async fetchSpocDetails() {
             const runtimeConfig = useRuntimeConfig();
@@ -173,6 +189,14 @@ export default {
           month = '0'+ month;
         }         
           return month + "/" + day + "/" + date.getFullYear();
+        },
+
+        snackImgSrc(){
+          return this.isJobFormActive ? successIcon : cancelIcon;
+        },
+
+        snackColor(){
+          return this.isJobFormActive ? '#F4FEF2' : '#FeF2F2';
         }
     },
 };
@@ -225,11 +249,12 @@ p {
   margin-top: 10px;
 }
 
-.snack_pos {
+.snack-pos {
   margin-top: 3rem;
   min-width: 0;
+
 }
-.snack_text {
+.snack-text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
@@ -239,15 +264,24 @@ p {
   line-height: 19px;
   letter-spacing: 0.01em;
   color: #323130;
+  padding-left: 10px;
+  
 }
 
 .snack-text-img {
-  margin-right: 10px;
-  height: 20px;
+  padding-bottom:0.001rem;
 }
 
 .flex-center {
   display: flex;
   justify-content: center;
+}
+
+.snackSuccess{
+  color: #F4FEF2;
+}
+
+.snackFailure{
+  color: #fef2f2;
 }
 </style>
