@@ -170,25 +170,29 @@
           </v-col>
         </v-row>
       </div>
-    </v-card>
+    
     <v-snackbar
       v-model="snackbar"
       :timeout="2000"
-      color="#F4FEF2"
+      :color="snackColor()"
       location="top"
-      class="snack_pos"
+      class="snack-pos"
     >
       <div class="flex-center">
-        <img class="snack-text-img" src="../../assets/success-icon.svg" />
-        <span class="snack_text">{{ snackbarText }}</span>
+        <img class="snack-text-img" :src="snackImgSrc()" />
+        <span class="snack-text">{{ snackbarText }}</span>
       </div>
     </v-snackbar>
+    </v-card>
   </div>
 </template>
 
 <script>
 import { mdiPencilOutline } from "@mdi/js";
 import Profileimage from "./Profileimage";
+import successIcon from "assets/success-icon.svg";
+import cancelIcon from "assets/cancel-icon.svg";
+
 export default {
   name: "profile",
   data: () => ({
@@ -202,12 +206,14 @@ export default {
       companySector: "",
     },
     snackbar: false,
+    snackbar: false,
+    isHandleSubmit:false,
 
     sectors: ["Manufacturing", "Automotive"],
   }),
   methods: {
     save() {
-      console.log("Here");
+      try{
       this.user.companyName = this.$refs["company_name"].value;
       this.user.companyDescription = this.$refs["company_description"].value;
       this.user.spocName = this.$refs["spoc_name"].value;
@@ -217,8 +223,24 @@ export default {
       this.isEditing = !this.isEditing;
       this.snackbar = true;
       this.snackbarText = "Profile Successfully Updated!";
-      console.log(this.snackbar);
+      this.isJobFormActive = true;
+      }
+      catch(error){
+        this.snackbar = true;
+        this.snackbarText = "something went wrong. Try again later!";
+        this.isJobFormActive = false;
+        console.log(error);
+      }
     },
+
+    snackImgSrc(){
+      return this.isJobFormActive ? successIcon : cancelIcon;
+    },
+
+    snackColor(){
+      return this.isJobFormActive ? '#F4FEF2' : '#FeF2F2';
+    }
+
   },
   components: {
     Profileimage,
@@ -231,11 +253,12 @@ export default {
 
 <style>
 
-.snack_pos {
+.snack-pos {
   margin-top: 3rem;
   min-width: 0;
 }
-.snack_text {
+
+.snack-text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
@@ -245,13 +268,13 @@ export default {
   line-height: 19px;
   letter-spacing: 0.01em;
   color: #323130;
+  padding-left: 10px;
 }
 
 .snack-text-img {
-  padding-top: 5px;
-  margin-right: 2px;
-  margin-right: 10px;
-  height: 20px;
+  /* padding-top: 0.4rem;   */
+   
+   height: 20px;
 }
 
 .section-header {
