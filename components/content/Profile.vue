@@ -93,9 +93,9 @@
               <img class="image" src="../../assets/company-name.svg" />
             </div>
             <Profileimage />
-          </v-col> </v-row
-        ><br /><br />
-        <v-row class="form-row">
+            <br /> <br />
+          </v-col> </v-row>
+                  <v-row class="form-row">
           <v-col cols="4">
             <p class="profile-field-label">
               Location <span class="req">*</span>
@@ -389,13 +389,12 @@ border-radius: 3px; */
 }
 .ellipse {
   position: absolute;
-  height: 82px;
-  left: 324px;
-  right: 1019px;
-  top: 464px;
-  background-color: #496968;
-  background: #eaf5f5;
-  border-radius: 100%;
+    height: 79px;
+    left: 251px;
+    right: 774px;
+    border-radius: 100%;
+    top: 441px;
+    background: #EAF5F5;
 }
 .image {
   position: absolute;

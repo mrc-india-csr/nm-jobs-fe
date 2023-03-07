@@ -174,7 +174,7 @@
       <p class="field-label">Other perks</p>
       <v-row>
 
-        <div v-for="perk in perks.data">      
+        <div :v-for="perk in perks.data">      
           <v-checkbox class="form-checkbox" v-model="formData.otherPerks" color="#AD793D" :label="perk" :value="perk"></v-checkbox>
         </div>
       </v-row>

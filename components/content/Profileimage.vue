@@ -1,122 +1,127 @@
 <template>
-  <div>
-    <div v-if="state.files.length > 0" class="files">
-      <div class="file-item" v-for="(file, index) in state.files" :key="index">
-        <span>{{ file.name }}</span>
-        <span class="delete-file" @click="handleClickDeleteFile(index)">
-           x
-          </span>
-      </div>
-    </div>
-    <div v-else class="dropzone" v-bind="getRootProps()">
-      <div
-        class="border"
-        :class="{
-          isDragActive,
-        }"
-      >
-        <input v-bind="getInputProps()" />
-          <img class ="image-1"  src="../../assets/profile-upload-icon.svg">
-        <p v-if="isDragActive">Drop the files here ...</p>
-        <p v-else> Click here or drop the files here</p>
-      </div>
+  <div class="flex items-center justify-center text-center" id="app">
+    <div
+      class="upload-rectangle"
+      @dragover="dragover"
+      @dragleave="dragleave"
+      @drop="drop"
+    >
+      <input
+        type="file"
+        multiple
+        name="fields[assetsFieldHandle][]"
+        id="assetsFieldHandle"
+        class="opacity-0 overflow-hidden absolute d-none"
+        @change="onChange"
+        ref="file"
+        accept=".pdf,.jpg,.jpeg,.png"
+      />
+
+      <label for="assetsFieldHandle" class="block cursor-pointer">
+        <div>
+          <img src="../../assets/profile-upload-icon.svg" class = "profile-upload-icon" />
+        </div>
+        <span class="underline-link">Click to Upload</span> <span class = "underline-text"> or drag and drop here </span>
+        <div>
+          <span class="underlined-info"> JPEG, SVG, PNG (max 800x400px) </span>
+        </div>
+      </label>
+      <ul class="mt-4" v-if="this.filelist.length > 0">
+        <li class="text-sm p-1">
+          {{ this.filelist[0].name
+          }}<v-btn
+            class="ml-2"
+            type="button"
+            @click="remove(filelist[0])"
+            title="Remove file"
+            color="error"
+            variant="plain"
+          >
+            Remove
+          </v-btn>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { reactive, watch } from 'vue';
-import { useDropzone } from 'vue3-dropzone';
-
-const state = reactive({
-  files: [],
-});
-
-const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
-  onDrop,
-});
-
-watch(state, () => {
-  const result = JSON.parse(JSON.stringify(new Proxy(state,{})))
-  console.log('state', result.files[0]);
-  //Check here
-});
-
-watch(isDragActive, () => {
-  // console.log('isDragActive', isDragActive.value, rest);
-});
-
-function onDrop(acceptFiles: never[], rejectReasons: any) {
-  console.log("Accept " + acceptFiles);
-  // console.log(rejectReasons);
-  state.files = acceptFiles;
-}
-
-function handleClickDeleteFile(index: number) {
-  state.files.splice(index, 1);
-}
-
+<script>
+export default {
+  name: "Profileimage",
+  delimiters: ["${", "}"], // Avoid Twig conflicts
+  // setup() {
+  //   let filelist = []; // Store our uploaded files
+  // },
+  data: () => ({
+    filelist: [],
+  }),
+  methods: {
+    onChange() {
+      this.filelist = [...this.$refs.file.files];
+      
+      console.log("FileList length is " + this.filelist[0]);
+    },
+    remove(i) {
+      this.filelist.splice(i, 1);
+    },
+    dragover(event) {
+      event.preventDefault();
+      // Add some visual fluff to show the user can drop its files
+      if (!event.currentTarget.classList.contains("bg-green-300")) {
+        event.currentTarget.classList.remove("bg-gray-100");
+        event.currentTarget.classList.add("bg-green-300");
+      }
+    },
+    dragleave(event) {
+      // Clean up
+      event.currentTarget.classList.add("bg-gray-100");
+      event.currentTarget.classList.remove("bg-green-300");
+    },
+    drop(event) {
+      event.preventDefault();
+      this.$refs.file.files = event.dataTransfer.files;
+      this.onChange(); // Trigger the onChange event manually
+      // Clean up
+      event.currentTarget.classList.add("bg-gray-100");
+      event.currentTarget.classList.remove("bg-green-300");
+    },
+  },
+};
 </script>
+<style>
 
-<style lang="scss" scoped>
-.dropzone,
-.files {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  font-size: 12px;
-  line-height: 1.5;
+.underlined-info{
+  font-size: 8px;
+  color: #717171;
+  font-weight: 400;
 }
 
-.border {
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  transition: all 0.3s ease;
-  background: #fff;
-
-  &.isDragActive {
-    border: 2px dashed black;
-    background: rgb(255 167 18 / 20%);
-  }
+.underline-link{
+  font-size:12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #496968;
+  cursor: pointer;
 }
 
-.file-item {
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border:0.5px dashed;
-  padding: 20px;
-  padding-left: 15px;
-  margin-top: 10px;
+.underline-text{
+  font-weight: 400;
+  font-size:12px;
+}
 
-  &:first-child {
-    margin-top: 0;
-  }
+.profile-upload-icon{
+  margin-top: 1rem;
+}
 
-  .delete-file {
-    color: black;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-img .image-1{
-position: absolute;
-height: 54px;
-left: 696px;
-right: 560px;
-top: 604px;
-background: #496968;
-
-  }
+.upload-rectangle
+{
+    position: absolute;
+    height: 99px;
+    left: 448px;
+    right: 298px;
+    top: 429px;
+    background: #FCFCFC;
+    border: 0.5px dashed #929292;
+    border-radius: 3px;
 }
 </style>

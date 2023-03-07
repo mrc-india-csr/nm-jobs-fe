@@ -108,7 +108,7 @@ export default {
     triggerJobForm() {
       store.isJobFormActive = true;
     },
-    getColor(status) {
+    getColor(status: string) {
       // console.log("Coming here");
       if (status === "Open") return "green";
       else if (status === "Closed") return "red";
