@@ -92,7 +92,7 @@
             <div class="ellipse">
               <img class="image" src="../../assets/company-name.svg" />
             </div>
-            <Profileimage />
+              <Profileimage :handleFileChange="handleFileChange"/>
             <br /> <br />
           </v-col> </v-row>
                   <v-row class="form-row">
@@ -109,7 +109,7 @@
                 :items="countries"
                 ref="location_country"
                 variant="solo"
-                :value="user.locationcountry"
+                :value="user.country"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="Country"
@@ -120,7 +120,7 @@
                 :items="cities"
                 ref="location_city"
                 variant="solo"
-                :value="user.locationcity"
+                :value="user.city"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="City"
@@ -217,8 +217,8 @@ export default {
       contactPhone: "",
       sector: "",
       profileImage: "null",
-      locationcountry: "",
-      locationcity: "",
+      country: "",
+      city: "",
     },
     snackbar: false,
     isHandleSubmit: false,
@@ -238,6 +238,15 @@ export default {
   }),
 
   methods: {
+        async handleFileChange(file){
+            const buffer = await file.arrayBuffer()
+            let uintImage = new Uint8Array(buffer);
+            var fileByteArray = [];
+            for (var i = 0; i < uintImage.length; i++) {
+              fileByteArray.push(uintImage[i]);
+            }
+            this.user.profileImage = fileByteArray;
+        },
     async save() {
       const runtimeConfig = useRuntimeConfig();
 
@@ -248,9 +257,9 @@ export default {
         this.user.contactEmail = this.$refs["spoc_email"].value;
         this.user.contactPhone = this.$refs["spoc_number"].value;
         this.user.sector = this.$refs["company_sector"].value;
-        this.user.locationcountry = this.$refs["location_country"].value;
-        this.user.locationcity = this.$refs["location_city"].value;
-        (this.user.profileImage = "null"), console.log("User", this.user);
+        this.user.country = this.$refs["location_country"].value;
+        this.user.city = this.$refs["location_city"].value;
+        console.log("User", this.user);
 
         const postUrl = runtimeConfig.public.apiBaseUrl + "/api/jobs/profile";
         await $fetch(postUrl, {

@@ -52,14 +52,16 @@ export default {
   // setup() {
   //   let filelist = []; // Store our uploaded files
   // },
+    props: {
+    handleFileChange:  {type : Function }
+  },
   data: () => ({
     filelist: [],
   }),
   methods: {
     onChange() {
       this.filelist = [...this.$refs.file.files];
-      
-      console.log("FileList length is " + this.filelist[0]);
+      this.handleFileChange(this.filelist[0]);
     },
     remove(i) {
       this.filelist.splice(i, 1);
