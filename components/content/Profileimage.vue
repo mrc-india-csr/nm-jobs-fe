@@ -16,7 +16,15 @@
         ref="file"
         accept=".pdf,.jpg,.jpeg,.png"
       />
-
+      <div class="mt-8" v-if="this.filelist.length > 0">
+        <span>
+          {{ this.filelist[0].name }}
+        </span>
+          <span class="delete-file" @click="remove(filelist[0])">
+           x
+          </span>
+      </div>
+     <div v-else>
       <label for="assetsFieldHandle" class="block cursor-pointer">
         <div>
           <img src="../../assets/profile-upload-icon.svg" class = "profile-upload-icon" />
@@ -26,21 +34,7 @@
           <span class="underlined-info"> JPEG, SVG, PNG (max 800x400px) </span>
         </div>
       </label>
-      <ul class="mt-4" v-if="this.filelist.length > 0">
-        <li class="text-sm p-1">
-          {{ this.filelist[0].name
-          }}<v-btn
-            class="ml-2"
-            type="button"
-            @click="remove(filelist[0])"
-            title="Remove file"
-            color="error"
-            variant="plain"
-          >
-            Remove
-          </v-btn>
-        </li>
-      </ul>
+    </div>
     </div>
   </div>
 </template>
@@ -126,4 +120,10 @@ export default {
     border: 0.5px dashed #929292;
     border-radius: 3px;
 }
+.delete-file {
+    color: black;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 </style>
