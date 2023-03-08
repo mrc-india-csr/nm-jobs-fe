@@ -49,7 +49,11 @@ export default {
     Vue3EasyDataTable,
     mdbDatatable,
   },
-  setup() {
+  async setup() {
+    const runtimeConfig = useRuntimeConfig();
+    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/";
+    const { data: jobList } = await useFetch(url);
+    console.log("JobList",jobList.value.data);
     const itemsSelected: Item[] = ref([]);
     const headers: Header[] = [
       { text: "Job Title", value: "jobtitle" },

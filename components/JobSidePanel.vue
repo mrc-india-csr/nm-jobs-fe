@@ -49,14 +49,13 @@ import FullTimeJob from "./FullTimeJob";
 import { useFormStore } from "../store/formStore";
 import successIcon from "../assets/success-icon.svg";
 import cancelIcon from "../assets/cancel-icon.svg";
+const store = useFormStore();
 
 export default {
     async setup() {
         const runtimeConfig = useRuntimeConfig();
         const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/perks/";
-        const { data: perks } = await useFetch(url);
-
-        const store = useFormStore();
+        const { data: perks } = await useFetch(url);        
         const {isJobFormActive} = storeToRefs(store);
 
         return {perks, isJobFormActive};
@@ -69,6 +68,8 @@ export default {
         isFormValid: false,
         jobType: "",
         initialState: {
+            companyName: "",
+            companyId: "",
             jobType: "",
             title: "",
             description: "",
@@ -93,6 +94,8 @@ export default {
             duration: "",
         },
         formData: {
+            companyName: store.companyInfo.companyName,
+            companyId: store.companyInfo.companyId,
             jobType: "",
             title: "",
             description: "",
