@@ -15,6 +15,7 @@
       table-class-name="color-change"
       hide-footer
     >
+
       <template #item-status="{status}">
         <v-chip class="ma-2" label :color="getColor(status)">
           {{status}}
@@ -41,6 +42,7 @@ import { mdbDatatable } from "mdbvue";
 import { ref } from "vue";
 import "vue3-easy-data-table/dist/style.css";
 import { useFormStore } from "../../store/formStore";
+
 const store = useFormStore();
 
 export default {
@@ -54,12 +56,17 @@ export default {
     const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/";
     const { data: jobList } = await useFetch(url);
     console.log("JobList",jobList.value.data);
+    let jobListJSON = JSON.parse(JSON.stringify(jobList.value.data))
+    console.log("JobListJSON " + jobListJSON[0].title)
     const itemsSelected: Item[] = ref([]);
+    const items: Item[] = ref([]);
+    items.value=Object.values(jobListJSON);
+
     const headers: Header[] = [
-      { text: "Job Title", value: "jobtitle" },
-      { text: "Type", value: "type" },
+      { text: "Job Title", value: "title" },
+      { text: "Type", value: "job_type" },
       { text: "Experience", value: "experience" },
-      { text: "Industry", value: "industry" },
+      { text: "Industry", value: "category" },
       { text: "Location", value: "location" },
       { text: "Open Positions", value: "openPositions", width: 100 },
       {
@@ -68,40 +75,12 @@ export default {
         width: 100,
       },
       { text: "Status", value: "status"},
-      { text: "Posted On", value: "postedOn" },
-      { text: "Open Until", value: "openUntil" },
-      { text: "Contact SPOC", value: "contactSPOC", width: 200 },
-      { text: "Open Until", value: "openUntil" },
+      { text: "Posted On", value: "date_posted" },
+      { text: "Contact SPOC", value: "posted_by", width: 200 },
+      { text: "Open Until", value: "to_date" },
       { text: "Operation", value: "operation" },
     ];
-    const items: Item[] = [
-      {
-        jobtitle: "HR Executive",
-        type: "Internship",
-        experience: 3,
-        industry: "Manufacturing",
-        location: "Chennai",
-        openPositions: 10,
-        applicationReceived: 5,
-        status: "Open",
-        postedOn: Date(Date.now()).toString(),
-        openUntil: Date(Date.now()).toString(),
-        contactSPOC: "Hari",
-      },
-      {
-        jobtitle: "HR Executive",
-        type: "Internship",
-        experience: 3,
-        industry: "Manufacturing",
-        location: "Chennai",
-        openPositions: 10,
-        applicationReceived: 5,
-        status: "Closed",
-        postedOn: Date(Date.now()).toString(),
-        openUntil: Date(Date.now()).toString(),
-        contactSPOC: "Hari",
-      },
-    ];
+    
     return {
       headers,
       items,
@@ -118,7 +97,9 @@ export default {
       else if (status === "Closed") return "red";
       else return "green";
     },
-    
+    getJobType(JobListJSON: any){
+      return JobListJSON[0].job_type;
+    }
   },
 };
 </script>

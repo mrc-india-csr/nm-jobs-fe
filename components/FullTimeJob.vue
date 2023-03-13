@@ -148,6 +148,7 @@
           density="compact"
           bg-color="white"
           variant="outlined"
+          placeholder="From"
         ></v-text-field>
         <v-text-field
           class="stipend"
@@ -156,6 +157,7 @@
           density="compact"
           bg-color="white"
           variant="outlined"
+          placeholder="To"
         ></v-text-field>
         <v-select
           :items="salaryTerm"
