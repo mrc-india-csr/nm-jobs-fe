@@ -199,8 +199,19 @@
 import Profileimage from "./Profileimage";
 import successIcon from "assets/success-icon.svg";
 import cancelIcon from "assets/cancel-icon.svg";
+import { useFormStore } from '../../store/formStore';
+
+const store = useFormStore();
 
 export default {
+    async setup() {        
+    const runtimeConfig = useRuntimeConfig();
+    const companyName = store.companyInfo.companyName;
+    console.log("In setup", companyName);
+    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/get_profile/"+ companyName;
+    const { data: profile } = await useFetch(url);  
+    console.log("Profile",this.profile.value);
+},
   name: "profile",
   data: () => ({
     isEditing: false,
