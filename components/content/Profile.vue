@@ -69,10 +69,8 @@
             <p class="profile-field-label">Sector <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <v-select
-              density="compact"
-              class="form-dropdown v-select"
-              :items="sectors"
+            <input
+              class="profile-text-field"
               ref="company_sector"
               :value="user.sector"
               :disabled="!isEditing"
@@ -106,29 +104,23 @@
             </p>
           </v-col>
           <v-col>
-            <div class="location-dropdown">
-              <v-select
-                class="form-dropdown marginRight40 v-select"
-                density="compact"
-                :items="countries"
+            <div>
+              <input
+                class="profile-text-field country"
                 ref="location_country"
-                variant="solo"
                 :value="user.locationcountry"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="Country"
-              ></v-select>
-              <v-select
-                class="form-dropdown marginRight40 v-select"
-                density="compact"
-                :items="cities"
+              />
+               <input
+                class="profile-text-field city"
                 ref="location_city"
-                variant="solo"
                 :value="user.locationcity"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="City"
-              ></v-select>
+              />
             </div>
           </v-col>
         </v-row>
@@ -204,7 +196,7 @@
 </template>
 
 <script>
-import { mdiPencilOutline } from "@mdi/js";
+
 import Profileimage from "./Profileimage";
 import successIcon from "assets/success-icon.svg";
 import cancelIcon from "assets/cancel-icon.svg";
@@ -237,19 +229,7 @@ export default {
     },
     snackbar: false,
     isHandleSubmit: false,
-    countries: ["India", "Australia", "China"],
-    cities: ["Mumbai", "Chennai", "Kolkata"],
-    sectors: [
-      "Automotive",
-      "IT-ITES",
-      "Manufacturing",
-      "Banking, Financial Services and Insurance",
-      "Logistics",
-      "Aerospace & Aviation",
-      "Construction",
-      "Electronics & Hardware",
-      "Leather",
-    ],
+
   }),
 
   methods: {
@@ -315,21 +295,21 @@ export default {
 
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 1rem;
+  line-height: 1.1875rem;
   letter-spacing: 0.01em;
   color: #323130;
-  padding-left: 10px;
+  padding-left: 0.625rem;
 }
 
 .snack-text-img {
   /* padding-top: 0.4rem;   */
 
-  height: 20px;
+  height: 1.25rem;
 }
 
 .section-header {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
 }
 .component-icon {
@@ -352,61 +332,53 @@ export default {
 }
 
 .profile-form-header {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #605e5c;
 }
 .profile-edit-btn {
-  margin: 0 10px !important;
+  margin: 0 0.625rem !important;
   box-shadow: none;
 }
 .divider {
-  border: 1px solid rgba(231, 231, 231, 1);
-  margin-bottom: 10px;
+  border: 0.0625rem solid rgba(231, 231, 231, 1);
+  margin-bottom: 0.625rem;
 }
 .form-row {
   width: 55vw;
 }
 .profile-text-field {
-  border: 1px solid rgba(172, 172, 172, 1);
-  padding: 12px 8px;
-  height: 40px;
-  margin: 5px 0px;
-  border-radius: 5px;
+  border: 0.0625rem solid rgba(172, 172, 172, 1);
+  padding: 0.75rem 0.5rem;
+  height: 2.5rem;
+  margin: 0.3125rem 0rem;
+  border-radius: 0.3125rem;
   width: 28vw;
 }
+
+.country {
+  margin-right: 1.3rem;
+  width: 15vw;
+}
+.city{
+  margin-right: 1.3rem;
+  width: 15vw;
+}
+
 .profile-field-label {
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 0.625rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: rgba(96, 94, 92, 1);
 }
 .profile-text-area {
-  border: 1px solid rgba(172, 172, 172, 1);
-  padding: 12px 8px;
+  border: 0.0625rem solid rgba(172, 172, 172, 1);
+  padding: 0.75rem 0.5rem;
   height: 7.813rem;
-  margin: 5px 0px;
-  border-radius: 5px;
+  margin: 0.3125rem 0rem;
+  border-radius: 0.3125rem;
   width: 36rem;
 }
 
-/* height: 125px;
-width: 576px;
-left: 431px;
-top: 307px;
-border-radius: 3px; */
 
-.location-dropdown {
-  display: flex;
-  margin-right: 7.5rem;
-}
-.marginRight40 {
-  margin-right: 40px !important;
-}
-
-.image 
-{
-  margin-left: -1rem;
-  margin-top: -1.5rem;
-}
 </style>
