@@ -108,7 +108,7 @@
               <input
                 class="profile-text-field country"
                 ref="location_country"
-                :value="user.locationcountry"
+                :value="user.country"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="Country"
@@ -116,7 +116,7 @@
                <input
                 class="profile-text-field city"
                 ref="location_city"
-                :value="user.locationcity"
+                :value="user.city"
                 :disabled="!isEditing"
                 :class="{ view: !isEditing }"
                 placeholder="City"
@@ -208,10 +208,9 @@ export default {
     async setup() {        
     const runtimeConfig = useRuntimeConfig();
     const companyName = store.companyInfo.companyName;
-    console.log("In setup", companyName);
     const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/get_profile/"+ companyName;
     const { data: profile } = await useFetch(url);  
-    console.log("Profile",this.profile.value);
+    let profileData = profile.value.data;
 },
   name: "profile",
   data: () => ({
@@ -224,8 +223,8 @@ export default {
       contactPhone: "",
       sector: "",
       profileImage: "null",
-      locationcountry: "",
-      locationcity: "",
+      country: "",
+      city: "",
     },
     snackbar: false,
     isHandleSubmit: false,
@@ -237,18 +236,27 @@ export default {
     console.log('RUnning setup');
     let isEditing = false;
   },
+    async handleFileChange(file){
+        const buffer = await file.arrayBuffer()
+        let uintImage = new Uint8Array(buffer);
+        var fileByteArray = [];
+        for (var i = 0; i < uintImage.length; i++) {
+          fileByteArray.push(uintImage[i]);
+        }
+        this.user.profileImage = fileByteArray;
+    },
     async save() {
       const runtimeConfig = useRuntimeConfig();
       try {
-        this.user.companyName = this.$refs["company_name"].value;
+        let company = this.$refs["company_name"].value;
+        this.user.companyName = company.toLowerCase().replaceAll(' ', '');
         this.user.companyDescription = this.$refs["company_description"].value;
         this.user.contactName = this.$refs["spoc_name"].value;
         this.user.contactEmail = this.$refs["spoc_email"].value;
         this.user.contactPhone = this.$refs["spoc_number"].value;
         this.user.sector = this.$refs["company_sector"].value;
-        this.user.locationcountry = this.$refs["location_country"].value;
-        this.user.locationcity = this.$refs["location_city"].value;
-        (this.user.profileImage = "null"), console.log("User", this.user);
+        this.user.country = this.$refs["location_country"].value;
+        this.user.city = this.$refs["location_city"].value;
 
         const postUrl = runtimeConfig.public.apiBaseUrl + "/api/jobs/profile";
         await $fetch(postUrl, {
