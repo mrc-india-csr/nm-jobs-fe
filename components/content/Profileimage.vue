@@ -2,6 +2,7 @@
   <div class="flex items-center justify-center text-center" id="app">
     <div
       class="upload-rectangle"
+      :class="{ view: !isEditing }"
       @dragover="dragover"
       @dragleave="dragleave"
       @drop="drop"
@@ -9,6 +10,7 @@
       <input
         type="file"
         multiple
+        :disabled="!isEditing"
         name="fields[assetsFieldHandle][]"
         id="assetsFieldHandle"
         class="opacity-0 overflow-hidden absolute d-none"
@@ -47,6 +49,7 @@ export default {
   //   let filelist = []; // Store our uploaded files
   // },
     props: {
+    isEditing : Boolean,
     handleFileChange:  {type : Function }
   },
   data: () => ({
@@ -119,6 +122,7 @@ export default {
     background: #FCFCFC;
     border: 0.5px dashed #929292;
     border-radius: 3px;
+    width: 36vw;
 }
 .delete-file {
     color: black;

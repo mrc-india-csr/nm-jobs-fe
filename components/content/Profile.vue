@@ -89,7 +89,8 @@
               <img class="image" src="../../assets/company-name.svg" />
             </div> -->
               <Profileimage 
-              :handleFileChange="handleFileChange"
+              :isEditing = "isEditing"
+              :handleFileChange="handleFileChange"              
               ref="profile_image"
               :value="user.profileImage"
               :disabled="!isEditing"
@@ -365,12 +366,12 @@ export default {
 }
 
 .country {
-  margin-right: 1.3rem;
-  width: 15vw;
+  margin-right: 1.5rem;
+    width: 13vw;
 }
 .city{
-  margin-right: 1.3rem;
-  width: 15vw;
+  margin-right: 1.5rem;
+  width: 13vw;
 }
 
 .profile-field-label {
@@ -385,7 +386,7 @@ export default {
   height: 7.813rem;
   margin: 0.3125rem 0rem;
   border-radius: 0.3125rem;
-  width: 36rem;
+  width: 46rem;
 }
 
 
