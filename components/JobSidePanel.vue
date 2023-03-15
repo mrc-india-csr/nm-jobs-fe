@@ -191,7 +191,7 @@ export default {
         if (month < 10) {
           month = '0'+ month;
         }         
-          return month + "/" + day + "/" + date.getFullYear();
+          return day + "/" + month + "/" + date.getFullYear();
         },
 
         snackImgSrc(){
