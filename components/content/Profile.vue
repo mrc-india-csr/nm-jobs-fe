@@ -85,9 +85,11 @@
             </p>
           </v-col>
           <v-col>
-            <!-- <div class="ellipse">
-              <img class="image" src="../../assets/company-name.svg" />
-            </div> -->
+            <div class="ellipse">
+              <img class="image" src="../../assets/profile-pic.svg" />
+            </div>
+            </v-col>
+            <v-col>
               <Profileimage 
               :isEditing = "isEditing"
               :handleFileChange="handleFileChange"              

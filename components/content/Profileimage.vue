@@ -118,7 +118,7 @@ export default {
     height: 99px;
     left: 448px;
     right: 298px;
-    top: 429px;
+    top: 460px;
     background: #FCFCFC;
     border: 0.5px dashed #929292;
     border-radius: 3px;
