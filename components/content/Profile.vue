@@ -69,9 +69,12 @@
             <p class="profile-field-label">Sector <span class="req">*</span></p>
           </v-col>
           <v-col>
-            <input
-              class="profile-text-field"
+            <v-select
+              density="compact"
+              class="sector-dropdown v-select"
+              :items="sectors"
               ref="company_sector"
+              bg-color="white"
               :value="user.sector"
               :disabled="!isEditing"
               :class="{ view: !isEditing }"
@@ -211,27 +214,38 @@ export default {
     async setup() {        
     const runtimeConfig = useRuntimeConfig();
     const companyName = store.companyInfo.companyName;
-    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/get_profile/"+ companyName;
+    const url = runtimeConfig.public.apiBaseUrl + "/api/jobs/get_profile/"+ companyName + "/";
     const { data: profile } = await useFetch(url);  
     let profileData = profile.value.data;
+    const user = {
+      companyName: profileData.companyName,
+      companyDescription: profileData.companyDescription,
+      contactName: profileData.contactName,
+      contactEmail: profileData.contactEmail,
+      contactPhone:profileData.contactPhone,
+      sector: profileData.sector,
+      profileImage: profileData.profileImage,
+      country: profileData.country,
+      city: profileData.city,
+    }
+    return {user};
 },
   name: "profile",
   data: () => ({
     isEditing:false,
-    user: {
-      companyName: "",
-      companyDescription: "",
-      contactName: "",
-      contactEmail: "",
-      contactPhone: "",
-      sector: "",
-      profileImage: "null",
-      country: "",
-      city: "",
-    },
     snackbar: false,
     isHandleSubmit: false,
-
+    sectors: [
+      "Automotive",
+      "IT-ITES",
+      "Manufacturing",
+      "Banking, Financial Services and Insurance",
+      "Logistics",
+      "Aerospace & Aviation",
+      "Construction",
+      "Electronics & Hardware",
+      "Leather",
+    ],
   }),
 
   methods: {
@@ -257,13 +271,11 @@ export default {
         this.user.contactName = this.$refs["spoc_name"].value;
         this.user.contactEmail = this.$refs["spoc_email"].value;
         this.user.contactPhone = this.$refs["spoc_number"].value;
-        this.user.sector = this.$refs["company_sector"].value;
         this.user.country = this.$refs["location_country"].value;
         this.user.city = this.$refs["location_city"].value;
-
-        const postUrl = runtimeConfig.public.apiBaseUrl + "/api/jobs/profile";
+        const postUrl = runtimeConfig.public.apiBaseUrl + "/api/jobs/update_profile/" + store.companyInfo.companyId + "/";
         await $fetch(postUrl, {
-          method: "POST",
+          method: "PUT",
           body: this.user,
         });
 
@@ -390,6 +402,15 @@ export default {
   border-radius: 0.3125rem;
   width: 46rem;
 }
-
+.sector-dropdown {
+  margin-right: 30px;
+  width: 28vw !important;
+  margin-top: 5px;
+  height: 40px;
+}
+.sector-dropdown > .v-input__control {
+  width: 28vw !important;
+  outline: auto rgba(220, 220, 220, 1) !important;
+}
 
 </style>
