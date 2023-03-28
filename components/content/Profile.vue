@@ -228,6 +228,7 @@ export default {
       country: profileData.country,
       city: profileData.city,
     }
+    console.log("THis is a user " + user.profileImage)
     return {user};
 },
   name: "profile",
@@ -252,6 +253,7 @@ export default {
   setup() {
     console.log('RUnning setup');
     let isEditing = false;
+    console.log("This user is s" + this.user.profileImage)
   },
     async handleFileChange(file){
         const buffer = await file.arrayBuffer()
@@ -283,10 +285,13 @@ export default {
         this.snackbar = true;
         this.snackbarText = "Profile Successfully Updated!";
         this.isJobFormActive = true;
+        console.log("User is " + this.user)
       } catch (error) {
         this.snackbar = true;
         this.snackbarText = "Something went wrong. Try again later!";
         this.isJobFormActive = false;
+        console.log("User is (error)" + this.user.profileImage) //Gives the byte array of the Image uploaded
+
         console.log(error);
       }
     },
