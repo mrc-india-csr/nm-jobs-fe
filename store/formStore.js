@@ -1,6 +1,6 @@
 export const useFormStore = defineStore('formStore', {
     state: () => ({ activeTab : ''}),
-    state: () => ({ activeTab : '', isJobFormActive: false, companyInfo : {companyName:"mrcooper", companyId:"77b3740e220f4ba9866838a09c1e571e"}}),
+    state: () => ({ activeTab : '', isJobFormActive: false, companyInfo : {companyName:"mrcooper", companyId:"ade78d28-2745-4437-acd3-04cf5a61e0c0"}}),
     getters: {
     },
     actions: {
